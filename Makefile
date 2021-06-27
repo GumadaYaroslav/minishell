@@ -9,20 +9,23 @@ SRCS_PIPEX	= 		p_pipes.c \
 					p_raise_error.c \
 					p_redirects.c
 
-SRCS_FOLDER	=	srcs/
+PARSING_DIR	=	parsing/
+LOGIC_DIR	= 	logic/
 
-SRCS		= 	$(addprefix $(SRCS_FOLDER),$(SRCS_FILES))
-SRCS_P		= 	$(addprefix $(SRCS_FOLDER),$(SRCS_PIPEX))
+SRCS		= 	$(addprefix $(PARSING_DIR),$(SRCS_FILES))
+SRCS_P		= 	$(addprefix $(LOGIC_DIR),$(SRCS_PIPEX))
+
 OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 OBJS_P		=	$(patsubst %.c,%.o,$(SRCS_P))
 
-INCLUDE		=	-I./include -I./libs/libft/
+INCLUDE		=	-I./include -I./libs/libft/ -I./libs/readline/include/  -I./libs/readline/include/readline/
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -MMD
 RM			=	rm -f
 
 LIB = ./libs/libft/libft.a
+RDL = ./libs/readline/lib/libreadline.a
 
 all:		$(NAME)
 
@@ -31,14 +34,15 @@ all:		$(NAME)
 		
 $(NAME):	$(OBJS)
 			$(MAKE) -C $(dir $(LIB))
-			$(CC) $(INCLUDE) $(LIB) -o $(NAME) $(OBJS)
+			$(CC) $(INCLUDE) $(LIB) $(RDL) -o $(NAME) $(OBJS)
 
 pipex:		$(OBJS_P)
 			$(MAKE) -C $(dir $(LIB))
-			$(CC) $(INCLUDE) $(LIB) -o $(NAME_PIPEX) $(OBJS_P)
+			$(CC) $(INCLUDE) $(LIB) $(RDL) -o $(NAME_PIPEX) $(OBJS_P)
 
 clean:
-			$(RM) $(OBJS) $(OBJS:.o=.d) $(OBJS_P) $(OBJS_P:.o=.d)
+			$(RM) $(OBJS) $(OBJS:.o=.d)
+			$(RM) $(OBJS_P) $(OBJS_P:.o=.d)
 			@make -C $(dir $(LIB)) clean
 
 fclean:		clean
@@ -47,6 +51,6 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY:		all clean fclean re bonus
+.PHONY:		all clean fclean re bonus pipex
 -include	$(OBJS:.o=.d)
 -include	$(OBJS_P:.o=.d)

@@ -6,8 +6,12 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "libft.h"
 # include <sys/errno.h>
+
+# include "libft.h"
+# include "history.h"
+# include "readline.h"
+
 
 # define STDIN 0
 # define STDOUT 1
