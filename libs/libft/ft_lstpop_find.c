@@ -4,17 +4,17 @@
 **	@brief	searches and pop element from list
 **	
 **	@param	lst		pointer  to poiner to list
-**	@param	x		content for search
+**	@param	val		content for search
 **	@return	t_list*	pointer to element
 */
-t_list	*ft_lstpop_find(t_list **lst, int x)
+t_list	*ft_lstpop_find(t_list **lst, char *key)
 {
 	t_list	*elem;
 	t_list	*curr;
 
 	elem = NULL;
 	curr = *lst;
-	if (curr && curr->x == x)
+	if (curr && !ft_strncmp(curr->val, key, ft_strlen(key)))
 	{
 		elem = curr;
 		*lst = elem->next;
@@ -23,7 +23,7 @@ t_list	*ft_lstpop_find(t_list **lst, int x)
 	}
 	while (curr && curr->next)
 	{
-		if (curr->next->x == x)
+		if (!ft_strncmp(curr->next->val, key, ft_strlen(key)))
 		{
 			elem = curr->next;
 			curr->next = curr->next->next;

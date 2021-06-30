@@ -20,7 +20,7 @@
 
 typedef struct s_list
 {
-	int				x;
+	char			*val;
 	struct s_list	*next;
 }					t_list;
 
@@ -69,20 +69,24 @@ void		ft_split_free(char **arr);
 int			ft_split_len(char **arr);
 long long	ft_atoi_long(const char *str, long long *x);
 
-// lst with int
-t_list		*ft_lstnew(int x);
+// lst with char
+t_list		*ft_lstnew(char *val);
 void		ft_lstadd_front(t_list **lst, t_list *new);
 int			ft_lstsize(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstadd_back(t_list **lst, t_list *new);
 void		ft_lstdelone(t_list *lst);
 void		ft_lstclear(t_list **lst);
-void		ft_lstiter(t_list *lst, void (*f)(int));
-t_list		*ft_lstmap(t_list *lst, int (*f)(int));
+void		ft_lstiter(t_list *lst, void (*f)(char *));
+t_list		*ft_lstmap(t_list *lst, char *(*f)(char *));
 
-int			ft_lstsort(t_list *lst, bool asc);
-t_list		*ft_lstfind(t_list *lst, int x);
-t_list		*ft_lstpop(t_list **lst, bool first);
-t_list		*ft_lstpop_find(t_list **lst, int x);
+// int			ft_lstsort(t_list *lst, bool asc);
+t_list		*ft_lstfind(t_list *lst, char *key);
+// t_list		*ft_lstpop(t_list **lst, bool first);
+t_list		*ft_lstpop_find(t_list **lst, char *key);
+
+// minishell adddons
+char 		**ft_lst_get_array(t_list *lst);
+char		*ft_lstdup_str(t_list *lst);
 
 #endif

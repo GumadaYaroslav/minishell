@@ -2,14 +2,15 @@ NAME		=	minishell
 
 NAME_PIPEX	=	pipex
 
-SRCS_FILES	= 		minishell.c
+SRCS_FILES	= 		minishell.c \
+					tests_func.c
 
 SRCS_PIPEX	= 		p_pipes.c \
 					p_utils.c \
 					p_raise_error.c \
 					p_redirects.c
 
-PARSING_DIR	=	parsing/
+PARSING_DIR	=	parcing/
 LOGIC_DIR	= 	logic/
 
 SRCS		= 	$(addprefix $(PARSING_DIR),$(SRCS_FILES))
@@ -25,7 +26,7 @@ CFLAGS		=	-Wall -Wextra -Werror -MMD
 RM			=	rm -f
 
 LIB = ./libs/libft/libft.a
-RDL = ./libs/readline/lib/libreadline.a
+RDL = -L./libs/readline/lib/ -lreadline
 
 all:		$(NAME)
 

@@ -9,6 +9,7 @@ void	ft_lstdelone(t_list *lst)
 {
 	if (lst)
 	{
+		free(lst->val);
 		free(lst);
 	}
 }

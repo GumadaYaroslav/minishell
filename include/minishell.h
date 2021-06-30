@@ -15,6 +15,45 @@
 
 # define STDIN 0
 # define STDOUT 1
+
+
+typedef	struct s_flag
+{
+	bool	quote;
+	bool	d_quote;
+	size_t	pipe;
+}	t_flag;
+
+
+typedef struct s_cmnd
+{
+	size_t			ind;
+	char			*name;
+	int				infile;
+	int				outfile;
+	char			**arg;
+	struct s_cmnd	*next;
+}	t_cmnd;
+
+typedef	struct s_minishell
+{
+	char	**path;
+
+	t_cmnd	*cmnd;
+}	t_minishell;
+
+
+// parcing / minishell
+int		main(int argc, char **argv, char **envp);
+
+// parcing / tests_func
+void 	test_print_arr(char **arr);
+
+
+
+
+////////////////// pipex block ///////////////
+
 # define L_ARR 1
 # define R_ARR 2
 # define R_D_ARR 3
@@ -34,6 +73,9 @@ typedef struct s_param
 	size_t	ind;
 	char	***cmnds;
 }	t_param;
+
+
+
 
 
 // p_pipes
@@ -56,5 +98,7 @@ void	get_commands(int argc, char **argv, t_param *p);
 void	get_paths(t_param *p);
 int		get_next_path(t_param *p, char *cmnd, int i);
 int		my_open(t_param *p, char *fname, int mode);
+
+////////////////// pipex block end ///////////////
 
 #endif

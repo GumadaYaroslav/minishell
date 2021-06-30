@@ -8,7 +8,7 @@
 **	@param	f		function for create new content
 **	@return	t_list*	pointer to new list or NULL
 */
-t_list	*ft_lstmap(t_list *lst, int (*f)(int))
+t_list	*ft_lstmap(t_list *lst, char *(*f)(char *))
 {
 	t_list	*begin;
 	t_list	*cur;
@@ -17,7 +17,7 @@ t_list	*ft_lstmap(t_list *lst, int (*f)(int))
 	begin = NULL;
 	while (lst)
 	{
-		new = ft_lstnew(f(lst->x));
+		new = ft_lstnew(f(ft_strdup(lst->val)));
 		if (!new)
 		{
 			ft_lstclear(&begin);

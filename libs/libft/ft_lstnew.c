@@ -3,17 +3,17 @@
 /*
 **	@brief	create new list element
 **	
-**	@param	content		element content
+**	@param	val		element content
 **	@return	t_list*	pointer to new element or NULL
 */
-t_list	*ft_lstnew(int x)
+t_list	*ft_lstnew(char *val)
 {
 	t_list	*elem;
 
 	elem = (t_list *)malloc(sizeof(*elem));
 	if (elem)
 	{
-		elem->x = x;
+		elem->val = val;
 		elem->next = NULL;
 	}
 	return (elem);

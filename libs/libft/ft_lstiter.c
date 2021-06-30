@@ -6,11 +6,11 @@
 **	@param	lst		pointer to the list
 **	@param	f		function to change content
 */
-void	ft_lstiter(t_list *lst, void (*f)(int))
+void	ft_lstiter(t_list *lst, void (*f)(char *))
 {
 	while (lst)
 	{
-		f(lst->x);
+		f(lst->val);
 		lst = lst->next;
 	}
 }
