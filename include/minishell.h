@@ -28,19 +28,24 @@ typedef	struct s_flag
 typedef struct s_cmnd
 {
 	size_t			ind;
-	char			*name;
-	int				infile;
-	int				outfile;
+	t_list			*lst_arg;
+	char			**arg;
+	t_list			*l_arrow;
+	t_list			*dl_arrow;
+	t_list			*r_arrow;
+	t_list			*dr_arrow;
 	char			**arg;
 	struct s_cmnd	*next;
 }	t_cmnd;
 
 typedef	struct s_minishell
 {
-	char	**path;
+	// char	**path;
+	t_list	*lst_env;
+	char	**env;
 
 	t_cmnd	*cmnd;
-}	t_minishell;
+}	t_msh;
 
 
 // parcing / minishell
@@ -48,6 +53,8 @@ int		main(int argc, char **argv, char **envp);
 
 // parcing / tests_func
 void 	test_print_arr(char **arr);
+void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
 
 
