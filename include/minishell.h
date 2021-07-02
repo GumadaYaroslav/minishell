@@ -9,6 +9,8 @@
 # include <sys/errno.h>
 
 # include "libft.h"
+// #include <readline/readline.h>
+// #include <readline/history.h>
 # include "history.h"
 # include "readline.h"
 
@@ -34,7 +36,6 @@ typedef struct s_cmnd
 	t_list			*dl_arrow;
 	t_list			*r_arrow;
 	t_list			*dr_arrow;
-	char			**arg;
 	struct s_cmnd	*next;
 }	t_cmnd;
 
@@ -50,13 +51,20 @@ typedef	struct s_minishell
 
 // parcing / minishell
 int		main(int argc, char **argv, char **envp);
+void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+
+// parsing / parsing
+size_t	parsing_keyword(t_msh *msh, char *s, size_t *i);
+void	parsing_by_words(t_msh *msh, char *s);
+t_cmnd	*new_command(void);
 
 // parcing / tests_func
 void 	test_print_arr(char **arr);
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
 t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
-
+//parsing / raiser_error
+void	ft_raise_error(char *msg, char *errno_msg);
 
 
 ////////////////// pipex block ///////////////

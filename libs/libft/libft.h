@@ -88,5 +88,6 @@ t_list		*ft_lstpop_find(t_list **lst, char *key);
 // minishell adddons
 char 		**ft_lst_get_array(t_list *lst);
 char		*ft_lstdup_str(t_list *lst);
+char		*ft_chrdup(const char ch);
 
 #endif
