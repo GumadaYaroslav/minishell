@@ -9,6 +9,7 @@ t_cmnd	*new_command(void)
 		ft_raise_error(NULL, NULL); // return NULL;
 	// new_cmnd->ind = ind;
 	new_cmnd->next = NULL;
+	printf("create new cmnd\n");
 	return new_cmnd;
 }
 
@@ -18,7 +19,9 @@ void	parsing_by_words(t_msh *msh, char *s)
 	size_t	i;
 	bool	empty_cmnd;
 
+	printf("add %c\n", s[0]);
 	ft_lstadd_front(&msh->cmnd, new_command());
+	printf("after create new cmnd\n");
 	empty_cmnd = true;
 	i = 0;
 	while(s[i] && s[i] != '\n')
@@ -30,10 +33,11 @@ void	parsing_by_words(t_msh *msh, char *s)
 			ft_lstadd_front(&msh->cmnd, new_command());
 			empty_cmnd = true;
 		}
-		else if (!ft_ch_in_str(s[i], ' \t'))
+		else if (!ft_ch_in_str(s[i], " \t"))
 		{
 			empty_cmnd = false;
-			parsing_keyword(msh->cmnd, s, &i);
+			printf("before park key\n");
+			parsing_keyword(msh, s, &i);
 		
 
 		}
@@ -45,25 +49,29 @@ void	parsing_by_words(t_msh *msh, char *s)
 
 size_t	parsing_keyword(t_msh *msh, char *s, size_t *i)
 {
-	t_list	*word;
+	t_list	*chars;
+	char	*keyword;
 
-	word = NULL;
-	// if (s[*i] == '<')
-	// 	word = msh->cmnd->l_arrow;
-	// else if (s[*i] == '>')
-	// 	word = msh->cmnd->r_arrow;
-	// else
-	// 	word = msh->cmnd->lst_arg;
+	chars = NULL;
 	if (s[*i] == '<' || s[*i] == '>')
 	{
-		ft_lstadd_back(&word, ft_lstnew(ft_chrdup(s[(*i)++])));
+		ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 		if (s[*i - 1] == s[*i])
-			ft_lstadd_back(&word, ft_lstnew(ft_chrdup(s[(*i)++])));
+			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 		while (ft_ch_in_str(s[*i], " \t"))
 			(*i)++;
 	}
-	while (s[*i] && !ft_ch_in_str(s[*i], "<>| \n")) // todo add '"$
+	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n")) // todo add '"$
 	{
-		ft_lstadd_back(&word, ft_lstnew(ft_chrdup(s[(*i)++])));
+		if 
+		ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
+	keyword = ft_lstdup_str(chars);
+	ft_lstclear(&chars);
+	printf("found word: %s\n", keyword);
+	if (ft_ch_in_str(keyword[0], "<>"))
+		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));
+	else
+		ft_lstadd_back(&msh->cmnd->lst_arg, ft_lstnew(keyword));
+
 }

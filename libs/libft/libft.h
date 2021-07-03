@@ -20,8 +20,8 @@
 
 typedef struct s_list
 {
-	char			*val;
 	struct s_list	*next;
+	char			*val;
 }					t_list;
 
 void		*ft_memset(void *b, int c, size_t len);

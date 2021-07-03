@@ -1,5 +1,5 @@
 #include "libft.h"
-#include <stdio.h> // todo
+
 /*
  * @brief	create new string from the hole list!
  * 
@@ -20,13 +20,13 @@ char *ft_lstdup_str(t_list *lst)
 		size_string += ft_strlen(cur->val);
 		cur = cur->next;
 	}
-	new_str = malloc(sizeof(*new_str) * size_string);
+	new_str = ft_calloc(size_string, sizeof(*new_str));
 	if (!new_str)
 		return (NULL);
 	i = 0;
 	while (lst)
 	{
-		ft_strlcat(&new_str[i], lst->val, ft_strlen(lst->val) + 1);
+		ft_memcpy(new_str + i, lst->val, ft_strlen(lst->val));
 		i += ft_strlen(lst->val);
 		lst = lst->next;
 	}

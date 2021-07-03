@@ -29,14 +29,10 @@ typedef	struct s_flag
 
 typedef struct s_cmnd
 {
-	size_t			ind;
-	t_list			*lst_arg;
-	char			**arg;
-	t_list			*l_arrow;
-	t_list			*dl_arrow;
-	t_list			*r_arrow;
-	t_list			*dr_arrow;
 	struct s_cmnd	*next;
+	char			**arg;
+	t_list			*lst_arg;
+	t_list			*redirects;
 }	t_cmnd;
 
 typedef	struct s_minishell
