@@ -2,7 +2,8 @@ NAME		=	minishell
 
 NAME_PIPEX	=	pipex
 
-SRCS_FILES	= 		minishell.c \
+SRCS_FILES	= 		envp.c \
+					minishell.c \
 					parsing.c \
 					raise_error.c \
 					tests_func.c 

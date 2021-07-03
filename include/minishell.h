@@ -47,17 +47,26 @@ typedef	struct s_minishell
 
 // parcing / minishell
 int		main(int argc, char **argv, char **envp);
-void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
 
 // parsing / parsing
-size_t	parsing_keyword(t_msh *msh, char *s, size_t *i);
+void	parsing_keyword(t_msh *msh, char *s, size_t *i);
 void	parsing_by_words(t_msh *msh, char *s);
+void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
+char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
+char	*get_key(char quote, char *s, size_t *i);
+
 t_cmnd	*new_command(void);
+t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
+
+// parsing / envp
+void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+char	*get_value_from_envp(t_msh *msh, char *key);
 
 // parcing / tests_func
 void 	test_print_arr(char **arr);
-void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
-t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
+void	test_print_command(t_cmnd *cmnd);
+void	test_print_lst(t_list *lst);
+
 
 //parsing / raiser_error
 void	ft_raise_error(char *msg, char *errno_msg);

@@ -1,19 +1,5 @@
 #include "minishell.h"
 
-t_cmnd	*new_command(void)
-{
-	t_cmnd	*new_cmnd;
-
-	new_cmnd = ft_calloc(1, sizeof(*new_cmnd));
-	if (!new_cmnd)
-		ft_raise_error(NULL, NULL); // return NULL;
-	// new_cmnd->ind = ind;
-	new_cmnd->next = NULL;
-	printf("create new cmnd\n");
-	return new_cmnd;
-}
-
-
 void	parsing_by_words(t_msh *msh, char *s)
 {
 	size_t	i;
@@ -32,29 +18,42 @@ void	parsing_by_words(t_msh *msh, char *s)
 				ft_raise_error("syntax error near unexpected token '|'", NULL);
 			ft_lstadd_front(&msh->cmnd, new_command());
 			empty_cmnd = true;
+			i++;
 		}
 		else if (!ft_ch_in_str(s[i], " \t"))
 		{
 			empty_cmnd = false;
-			printf("before park key\n");
 			parsing_keyword(msh, s, &i);
-		
-
 		}
-		i++;
-
-		
+		else
+			i++;
 	}
 }
 
-size_t	parsing_keyword(t_msh *msh, char *s, size_t *i)
+t_cmnd	*new_command(void)
+{
+	t_cmnd	*new_cmnd;
+
+	new_cmnd = ft_calloc(1, sizeof(*new_cmnd));
+	if (!new_cmnd)
+		ft_raise_error(NULL, NULL); // return NULL;
+	// new_cmnd->ind = ind;
+	new_cmnd->next = NULL;
+	printf("create new cmnd\n");
+	return new_cmnd;
+}
+
+void	parsing_keyword(t_msh *msh, char *s, size_t *i)
 {
 	t_list	*chars;
-	char	*keyword;
+	bool	is_redirect;
 
+	
+	is_redirect = false;
 	chars = NULL;
 	if (s[*i] == '<' || s[*i] == '>')
 	{
+		is_redirect = true;
 		ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 		if (s[*i - 1] == s[*i])
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
@@ -63,15 +62,77 @@ size_t	parsing_keyword(t_msh *msh, char *s, size_t *i)
 	}
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n")) // todo add '"$
 	{
-		if 
-		ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
+		printf("check %c\n", s[*i]);
+		if (s[*i] == '$')
+		{
+			printf("run dollar\n");
+			ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(0, s, i))));
+			printf("dolar = %s\n", chars->val);
+		}
+		else if (ft_ch_in_str(s[*i], "'\""))
+		{
+			printf("run quotes\n");
+			ft_lstadd_back(&chars, ft_lstnew(get_quotes_string(msh, s, i)));
+			printf("quote = %s\n", chars->val);
+		}
+		else
+			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
-	keyword = ft_lstdup_str(chars);
+	add_keyword(msh, &chars, is_redirect);
+}
+
+char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
+{
+	t_list	*chars;
+	char	quote;
+	char	*quote_str;
+
+	chars = NULL;
+	quote = s[(*i)++];
+	while (s[*i] && s[*i] != quote)
+	{
+		if (s[*i] == '$' && quote == '\"')
+			ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(quote, s, i))));
+		else
+			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
+	}
+	quote_str = ft_lstdup_str(chars);
 	ft_lstclear(&chars);
+	return (quote_str);
+}
+
+
+void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
+{
+	char *keyword;
+
+	keyword = ft_lstdup_str(*chars);
+
+	ft_lstclear(chars);
 	printf("found word: %s\n", keyword);
-	if (ft_ch_in_str(keyword[0], "<>"))
+	if (is_redirect)
+	{
+		if (ft_strlen(keyword) == 1 || (ft_strlen(keyword) == 2 && keyword[0] == keyword[1]))
+			ft_raise_error("Unexpected error near ", keyword);
 		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));
+	}
 	else
 		ft_lstadd_back(&msh->cmnd->lst_arg, ft_lstnew(keyword));
+}
 
+
+
+char	*get_key(char quote, char *s, size_t *i)
+{
+	t_list	*key_chars;
+	char	*key;
+	char	*value;
+
+	key_chars = NULL;
+	(*i)++;
+	while (s[*i] && !ft_ch_in_str(s[*i], " <>|$'\n") && s[*i] != quote)
+		ft_lstadd_back(&key_chars, ft_lstnew(ft_chrdup(s[(*i)++])));
+	key = ft_lstdup_str(key_chars);
+	ft_lstclear(&key_chars);
+	return (key);
 }
