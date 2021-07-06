@@ -19,8 +19,9 @@ int	main(int argc, char **argv, char **envp)
 		// printf("|%s|\n", str);
 		
 		printf("-------------\n");
-		test_print_command(msh.cmnd);
+		test_print_command(msh.lst_cmnd);
 		msh.cmnd = NULL; // todo clear
+		msh.lst_cmnd = NULL;
 		// test_print_arr(new_arr);
 		// printf("new_str=%s\n", ft_lstdup_str(lst));	
 	}

@@ -3,31 +3,32 @@
 void	parsing_by_words(t_msh *msh, char *s)
 {
 	size_t	i;
-	bool	empty_cmnd;
+	int		pipes;
 
 	printf("add %c\n", s[0]);
-	ft_lstadd_front(&msh->cmnd, new_command());
+	msh->cmnd = new_command();
 	printf("after create new cmnd\n");
-	empty_cmnd = true;
+	pipes = 0;
 	i = 0;
 	while(s[i] && s[i] != '\n')
 	{
 		if (s[i] == '|')
 		{
-			if (empty_cmnd)
+			if (!msh->cmnd->redirects && !msh->cmnd->lst_arg)
 				ft_raise_error("syntax error near unexpected token '|'", NULL);
-			ft_lstadd_front(&msh->cmnd, new_command());
-			empty_cmnd = true;
+			ft_cmnd_add_end(&msh->lst_cmnd, msh->cmnd);
+			msh->cmnd = new_command();
+			pipes++;
 			i++;
 		}
 		else if (!ft_ch_in_str(s[i], " \t"))
-		{
-			empty_cmnd = false;
 			parsing_keyword(msh, s, &i);
-		}
 		else
 			i++;
 	}
+	if (pipes && !msh->cmnd->redirects && !msh->cmnd->lst_arg)
+		ft_raise_error("syntax error near unexpected token '|'", NULL);
+	ft_cmnd_add_end(&msh->lst_cmnd, msh->cmnd);
 }
 
 t_cmnd	*new_command(void)
@@ -126,7 +127,6 @@ char	*get_key(char quote, char *s, size_t *i)
 {
 	t_list	*key_chars;
 	char	*key;
-	char	*value;
 
 	key_chars = NULL;
 	(*i)++;

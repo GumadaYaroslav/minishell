@@ -81,13 +81,8 @@ void		ft_lstiter(t_list *lst, void (*f)(char *));
 t_list		*ft_lstmap(t_list *lst, char *(*f)(char *));
 
 // int			ft_lstsort(t_list *lst, bool asc);
-t_list		*ft_lstfind(t_list *lst, char *key);
+// t_list		*ft_lstfind(t_list *lst, char *key);
 // t_list		*ft_lstpop(t_list **lst, bool first);
-t_list		*ft_lstpop_find(t_list **lst, char *key);
-
-// minishell adddons
-char 		**ft_lst_get_array(t_list *lst);
-char		*ft_lstdup_str(t_list *lst);
-char		*ft_chrdup(const char ch);
+// t_list		*ft_lstpop_find(t_list **lst, char *key);
 
 #endif
