@@ -9,23 +9,12 @@
 # include <sys/errno.h>
 
 # include "libft.h"
-// #include <readline/readline.h>
-// #include <readline/history.h>
 # include "history.h"
 # include "readline.h"
 
 
 # define STDIN 0
 # define STDOUT 1
-
-
-typedef	struct s_flag
-{
-	bool	quote;
-	bool	d_quote;
-	size_t	pipe;
-}	t_flag;
-
 
 typedef struct s_cmnd
 {
@@ -37,7 +26,7 @@ typedef struct s_cmnd
 
 typedef	struct s_minishell
 {
-	// char	**path;
+	pid_t	pid;
 	t_list	*lst_env;
 	char	**env;
 
@@ -47,7 +36,7 @@ typedef	struct s_minishell
 
 
 // parcing / minishell
-int		main(int argc, char **argv, char **envp);
+// int		main(int argc, char **argv, char **envp);
 
 // parsing / parsing
 void	parsing_keyword(t_msh *msh, char *s, size_t *i);
@@ -115,7 +104,7 @@ typedef struct s_param
 
 
 // p_pipes
-int		main(int argc, char **argv, char **envp);
+// int		main(int argc, char **argv, char **envp);
 void	pipex(t_param *p);
 void	run_command(t_param *p, size_t i);
 

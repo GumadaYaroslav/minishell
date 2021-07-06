@@ -18,7 +18,7 @@ char	*get_value_from_envp(t_msh *msh, const char *key)
 
 	res = ft_lstfind(msh->lst_env, key);
 	if (res)
-		return (ft_strdup(res->val));
+		return (get_val_from_keyval(res->val));
 	else
 		return (ft_strdup(""));
 }
