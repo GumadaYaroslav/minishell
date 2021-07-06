@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -11,6 +10,7 @@ int	main(int argc, char **argv, char **envp)
 	char *str;
 
 	inicialise_struct(&msh, argc, argv, envp);
+////MAIN
 	while (true)
 	{
 		str = readline("msh$ ");

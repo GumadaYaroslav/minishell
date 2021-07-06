@@ -35,7 +35,7 @@ typedef struct s_cmnd
 	t_list			*redirects;
 }	t_cmnd;
 
-typedef	struct s_minishell
+typedef	struct s_msh
 {
 	// char	**path;
 	t_list	*lst_env;

@@ -15,14 +15,18 @@ SRCS_PIPEX	= 		p_pipes.c \
 					p_raise_error.c \
 					p_redirects.c
 
+SRCS_COMMANDS =		exit.c
+
 PARSING_DIR	=	parsing/
 LOGIC_DIR	= 	logic/
 
 SRCS		= 	$(addprefix $(PARSING_DIR),$(SRCS_FILES))
 SRCS_P		= 	$(addprefix $(LOGIC_DIR),$(SRCS_PIPEX))
+SRCS_C		= 	$(addprefix $(LOGIC_DIR),$(SRCS_COMMANDS))
 
 OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 OBJS_P		=	$(patsubst %.c,%.o,$(SRCS_P))
+OBJS_C		=	$(patsubst %.c,%.o,$(SRCS_C))
 
 INCLUDE		=	-I./include -I./libs/libft/ -I./libs/readline/include/ -I./libs/readline/include/readline
 
