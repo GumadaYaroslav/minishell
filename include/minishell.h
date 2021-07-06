@@ -15,7 +15,8 @@
 
 # define STDIN 0
 # define STDOUT 1
-
+# define OK 1
+# define KO 0
 typedef struct s_cmnd
 {
 	struct s_cmnd	*next;
@@ -40,6 +41,8 @@ typedef	struct s_msh
 
 int ft_echo(t_msh *msh, char **argv, char **env);
 int ft_exit(int argc, char **argv, char **env, t_msh *msh);
+int	ft_env(char **argv, char **env, t_msh *msh);
+int	ft_pwd(void);
 // parsing / parsing
 void	parsing_keyword(t_msh *msh, char *s, size_t *i);
 void	parsing_by_words(t_msh *msh, char *s);
