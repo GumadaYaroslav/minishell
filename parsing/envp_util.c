@@ -12,13 +12,13 @@ size_t	ft_keylen(const char *keyval)
 
 char	*get_val_from_keyval(const char *keyval)
 {
-	size_t	i;
+	size_t	len_key;
 
 	if (!keyval)
 		return (ft_strdup(""));
-	i = ft_keylen(keyval);
-	if (i && keyval[i] == '=')
-		return (ft_strdup(keyval + i + 1));
+	len_key = ft_keylen(keyval);
+	if (len_key && keyval[len_key] == '=')
+		return (ft_strdup(keyval + ft_keylen(keyval) + 1));
 	else
 		return (ft_strdup(""));
 }
