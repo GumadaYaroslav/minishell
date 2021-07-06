@@ -15,7 +15,8 @@ SRCS_PIPEX	= 		p_pipes.c \
 					p_raise_error.c \
 					p_redirects.c
 
-SRCS_COMMANDS =		exit.c
+SRCS_COMMANDS =		exit.c \
+					echo.c
 
 PARSING_DIR	=	parsing/
 LOGIC_DIR	= 	logic/
@@ -52,6 +53,10 @@ $(NAME):	$(OBJS)
 pipex:		$(OBJS_P)
 			$(MAKE) -C $(dir $(LIB))
 			$(CC) $(INCLUDE) -o $(NAME_PIPEX) $(OBJS_P)  $(LIB) $(RDL)
+
+echo:		$(OBJS_C)
+			$(MAKE) -C $(dir $(LIB))
+			$(CC) $(INCLUDE) -o echo $(OBJS_C)  $(LIB) $(RDL)
 
 clean:
 			$(RM) $(OBJS) $(OBJS:.o=.d)

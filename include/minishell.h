@@ -38,6 +38,8 @@ typedef	struct s_msh
 // parcing / minishell
 // int		main(int argc, char **argv, char **envp);
 
+int ft_echo(t_msh *msh, char **argv, char **env);
+int ft_exit(int argc, char **argv, char **env, t_msh *msh);
 // parsing / parsing
 void	parsing_keyword(t_msh *msh, char *s, size_t *i);
 void	parsing_by_words(t_msh *msh, char *s);
