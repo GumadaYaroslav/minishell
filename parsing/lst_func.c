@@ -9,12 +9,9 @@
 */
 t_list	*ft_lstfind(t_list *lst, const char *key)
 {
-	size_t	key_len;
-
-	key_len = ft_keylen(key);
 	while (lst)
 	{
-		if (!ft_strncmp(lst->val, key, key_len) && lst->val[key_len] == '=')
+		if (!ft_strncmp(lst->val, key, ft_keylen(key)))
 			break ;
 		lst = lst->next;
 	}
@@ -132,13 +129,19 @@ void	ft_lst_add_end(t_list **lst, t_list *new)
 }
 
 /*
+<<<<<<< HEAD
 **	@brief	adds new element to end on command list
+=======
+**	@brief	adds new element to the end of the list.
+**			checks for allocation errors
+>>>>>>> edf4365 (added funcs for envp. fix some problem for parsing)
 **	
 **	@param	lst		pointer to cmnd list
 **	@param	new		pointer to new element
 */
 void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new)
 {
+<<<<<<< HEAD
 	t_cmnd	*curr;
 
 	curr = *lst;
@@ -148,6 +151,12 @@ void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new)
 			curr = curr->next;
 		curr->next = new;
 	}
+=======
+	if (!new)
+		ft_raise_error("ALLLOHA ERROR", "NULL");
+	if (*lst)
+		ft_lstlast((t_list *)*lst)->next = (t_list *)new;
+>>>>>>> edf4365 (added funcs for envp. fix some problem for parsing)
 	else
 		*lst = new;
 }

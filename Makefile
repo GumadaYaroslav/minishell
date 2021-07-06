@@ -18,7 +18,8 @@ SRCS_PIPEX	= 		p_pipes.c \
 SRCS_COMMANDS =		exit.c \
 					echo.c \
 					env.c \
-					pwd.c
+					pwd.c \
+					
 
 PARSING_DIR	=	parsing/
 LOGIC_DIR	= 	logic/

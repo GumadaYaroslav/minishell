@@ -22,7 +22,7 @@ void	print_export(char **env)
 	{
 		j = 0;
 		ft_putstr_fd(1, "declare -x");
-		ft_putstr_fd(1, ft_substr)
+		ft_putstr_fd(1, ft_substr);
 
 		i++;
 	}

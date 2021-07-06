@@ -15,16 +15,15 @@ int	main(int argc, char **argv, char **envp)
 	{
 		str = readline("msh$ ");
 		add_history(str);
-		msh.pid = fork();
-		if (!msh.pid)
-		{
-			parsing_by_words(&msh, str);	
-			printf("-------------\n");
-			test_print_command(msh.lst_cmnd);
-			 // todo clear. хотя дальше все равно эксит и чего мозги ебать
-			exit(0); // или не ноль. хуй знает
-		}
-		wait(0);
+		parsing_by_words(&msh, str);
+		// printf("|%s|\n", str);
+		
+		printf("-------------\n");
+		test_print_command(msh.lst_cmnd);
+		msh.cmnd = NULL; // todo clear
+		msh.lst_cmnd = NULL;
+		// test_print_arr(new_arr);
+		// printf("new_str=%s\n", ft_lstdup_str(lst));	
 	}
 }
 

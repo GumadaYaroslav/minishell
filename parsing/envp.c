@@ -23,7 +23,6 @@ char	*get_value_from_envp(t_msh *msh, const char *key)
 		return (ft_strdup(""));
 }
 
-
 void	remove_elem_from_envp(t_msh *msh, const char *key)
 {
 	t_list	*res;
