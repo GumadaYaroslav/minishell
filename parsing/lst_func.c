@@ -129,18 +129,22 @@ void	ft_lst_add_end(t_list **lst, t_list *new)
 }
 
 /*
-**	@brief	adds new element to the end of the list.
-**			checks for allocation errors
+**	@brief	adds new element to end on command list
 **	
 **	@param	lst		pointer to cmnd list
 **	@param	new		pointer to new element
 */
 void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new)
 {
-	if (!new)
-		ft_raise_error("ALLLOHA ERROR", "NULL");
-	if (*lst)
-		ft_lstlast((t_list *)*lst)->next = (t_list *)new;
+	t_cmnd	*curr;
+
+	curr = *lst;
+	if (curr)
+	{
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
 	else
 		*lst = new;
 }
