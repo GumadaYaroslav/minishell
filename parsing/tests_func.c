@@ -9,7 +9,7 @@ void test_print_arr(char **arr)
 void	test_print_lst(t_list *lst)
 {
 	for (int i = 0; lst; i++, lst=lst->next)
-		printf("%s ", lst->val);
+		printf("|%s| ", lst->val);
 	printf("\n");
 }
 
