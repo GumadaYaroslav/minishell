@@ -9,9 +9,12 @@
 */
 t_list	*ft_lstfind(t_list *lst, const char *key)
 {
+	size_t	key_len;
+
+	key_len = ft_keylen(key);
 	while (lst)
 	{
-		if (!ft_strncmp(lst->val, key, ft_keylen(key)))
+		if (!ft_strncmp(lst->val, key, key_len) && lst->val[key_len] == '=')
 			break ;
 		lst = lst->next;
 	}
