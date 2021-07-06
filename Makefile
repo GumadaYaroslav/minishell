@@ -15,12 +15,10 @@ SRCS_PIPEX	= 		p_pipes.c \
 					p_raise_error.c \
 					p_redirects.c
 
-<<<<<<< HEAD
 SRCS_COMMANDS =		exit.c \
-					echo.c
-=======
-SRCS_COMMANDS =		exit.c
->>>>>>> bf86560db2d61ac50aa96d64410a1273713161c2
+					echo.c \
+					env.c \
+					pwd.c
 
 PARSING_DIR	=	parsing/
 LOGIC_DIR	= 	logic/
