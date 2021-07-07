@@ -23,11 +23,15 @@ typedef struct s_cmnd
 	char			**arg;
 	t_list			*lst_arg;
 	t_list			*redirects;
+	int				pipe_fd[2];
+	int				old_out;
+	pid_t			pid;
+
+
 }	t_cmnd;
 
 typedef	struct s_msh
 {
-	pid_t	pid;
 	t_list	*lst_env;
 	char	**env;
 
@@ -132,3 +136,4 @@ int		my_open(t_param *p, char *fname, int mode);
 ////////////////// pipex block end ///////////////
 
 #endif
+
