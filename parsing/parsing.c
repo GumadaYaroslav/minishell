@@ -31,6 +31,16 @@ void	parsing_by_words(t_msh *msh, char *s)
 	ft_cmnd_add_end(&msh->lst_cmnd, msh->cmnd);
 }
 
+void *malloc_x(size_t size)
+{
+	void *ptr;
+
+	ptr  = malloc(size);
+	if (!ptr)
+		exit(1);
+	else
+		return ptr;
+}
 t_cmnd	*new_command(void)
 {
 	t_cmnd	*new_cmnd;
@@ -72,9 +82,9 @@ void	parsing_keyword(t_msh *msh, char *s, size_t *i)
 		}
 		else if (ft_ch_in_str(s[*i], "'\""))
 		{
-			printf("run quotes\n");
+			printf("run quotes %zu:%c\n", *i, s[*i]);
 			ft_lstadd_back(&chars, ft_lstnew(get_quotes_string(msh, s, i)));
-			printf("quote = %s\n", chars->val);
+			printf("quote content= %s\n", ft_lstlast(chars)->val);
 		}
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
@@ -97,6 +107,8 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
+	if (s[*i])
+		(*i)++;
 	quote_str = ft_lstdup_str(chars);
 	ft_lstclear(&chars);
 	return (quote_str);
@@ -130,7 +142,7 @@ char	*get_key(char quote, char *s, size_t *i)
 
 	key_chars = NULL;
 	(*i)++;
-	while (s[*i] && !ft_ch_in_str(s[*i], " <>|$'\n") && s[*i] != quote)
+	while (s[*i] && !ft_ch_in_str(s[*i], " <>|$'\n=") && s[*i] != quote)
 		ft_lstadd_back(&key_chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	key = ft_lstdup_str(key_chars);
 	ft_lstclear(&key_chars);
