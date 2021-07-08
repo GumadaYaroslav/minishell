@@ -130,7 +130,7 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));
 	}
 	else
-		ft_lstadd_back(&msh->cmnd->lst_arg, ft_lstnew(keyword));
+		ft_lstadd_front(&msh->cmnd->lst_arg, ft_lstnew(keyword));
 }
 
 
