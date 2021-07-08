@@ -4,6 +4,8 @@ void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp)
 {
 	size_t	i;
 	
+	(void)argc;
+	(void)argv;
 	msh->lst_env = NULL;
 	i = 0;
 	while (envp[i])

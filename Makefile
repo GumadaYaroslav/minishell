@@ -7,6 +7,10 @@ SRCS_FILES	= 		envp.c \
 					lst_func.c \
 					minishell.c \
 					parsing.c \
+					run_commands.c \
+					redirects.c \
+					dups.c \
+					path_generator.c \
 					raise_error.c \
 					tests_func.c 
 
