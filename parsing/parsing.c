@@ -5,9 +5,9 @@ void	parsing_by_words(t_msh *msh, char *s)
 	size_t	i;
 	int		pipes;
 
-	printf("add %c\n", s[0]);
+	// printf("add %c\n", s[0]);
 	msh->cmnd = new_command();
-	printf("after create new cmnd\n");
+	// printf("after create new cmnd\n");
 	pipes = 0;
 	i = 0;
 	while(s[i] && s[i] != '\n')
@@ -50,7 +50,7 @@ t_cmnd	*new_command(void)
 		ft_raise_error(NULL, NULL); // return NULL;
 	// new_cmnd->ind = ind;
 	new_cmnd->next = NULL;
-	printf("create new cmnd\n");
+	// printf("create new cmnd\n");
 	return new_cmnd;
 }
 
@@ -73,18 +73,18 @@ void	parsing_keyword(t_msh *msh, char *s, size_t *i)
 	}
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n")) // todo add '"$
 	{
-		printf("check %c\n", s[*i]);
+		// printf("check %c\n", s[*i]);
 		if (s[*i] == '$')
 		{
-			printf("run dollar\n");
+			// printf("run dollar\n");
 			ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(0, s, i))));
-			printf("dolar = %s\n", chars->val);
+			// printf("dolar = %s\n", chars->val);
 		}
 		else if (ft_ch_in_str(s[*i], "'\""))
 		{
-			printf("run quotes %zu:%c\n", *i, s[*i]);
+			// printf("run quotes %zu:%c\n", *i, s[*i]);
 			ft_lstadd_back(&chars, ft_lstnew(get_quotes_string(msh, s, i)));
-			printf("quote content= %s\n", ft_lstlast(chars)->val);
+			// printf("quote content= %s\n", ft_lstlast(chars)->val);
 		}
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
@@ -122,7 +122,7 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 	keyword = ft_lstdup_str(*chars);
 
 	ft_lstclear(chars);
-	printf("found word: %s\n", keyword);
+	// printf("found word: %s\n", keyword);
 	if (is_redirect)
 	{
 		if (ft_strlen(keyword) == 1 || (ft_strlen(keyword) == 2 && keyword[0] == keyword[1]))

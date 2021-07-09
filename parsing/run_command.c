@@ -15,8 +15,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 		{
 			if (!access(cmnd->arg[0], X_OK))
 			{
-				ft_putstr_fd("Execve: ", 2);
-				ft_putendl_fd(cmnd->arg[0], 2);
+				printos("Execve", cmnd->arg[0]);
 				execve(cmnd->arg[0], cmnd->arg, msh->env);
 
 			}
