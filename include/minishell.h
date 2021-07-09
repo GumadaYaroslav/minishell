@@ -13,7 +13,7 @@
 # include "libft.h"
 
 
-
+# define BUILTINS "echo:cd:pwd:export:unset:env:exit"
 # define STDIN 0
 # define STDOUT 1
 
@@ -36,6 +36,7 @@ typedef	struct s_minishell
 {
 	t_list	*lst_env;
 	char	**env;
+	char	**builtin;
 
 	t_cmnd	*cmnd;
 	t_cmnd	*lst_cmnd;
@@ -57,8 +58,12 @@ char	*get_key(char quote, char *s, size_t *i);
 t_cmnd	*new_command(void);
 t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
-// parsing / envp
+// parsing / inicialise
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+
+
+
+// parsing / envp
 char	*get_value_from_envp(t_msh *msh, const char *key);
 void	remove_elem_from_envp(t_msh *msh, const char *key);
 void	insert_or_update_elem_from_envp(t_msh *msh, const char *keyval);

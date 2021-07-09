@@ -4,6 +4,7 @@ NAME_PIPEX	=	pipex
 
 SRCS_FILES	= 		envp.c \
 					envp_util.c \
+					inicialise.c \
 					lst_func.c \
 					minishell.c \
 					parsing.c \

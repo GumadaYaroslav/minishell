@@ -5,25 +5,24 @@ void	run_commands_via_pipes(t_msh *msh)
 	t_cmnd	*curr;
 
 	curr = msh->lst_cmnd;
-	// run_cmnd_first(msh, curr);
 	while (curr)
 	{
+		curr->arg = ft_lst_get_array(curr->lst_arg);
 		if (curr->next)
 		{
 			printf("run command %s\n", curr->lst_arg->val);
 			if (pipe(curr->pipe_fd) < 0)
 				ft_raise_error(NULL, NULL); // здесь нужно переделать на функцию явного брэйка и возврата в мэйн
 			curr->out = curr->pipe_fd[1];
-			curr->next->in = curr->pipe_fd[0];	
+			curr->next->in = curr->pipe_fd[0];
 			run_one_cmnd(msh, curr);
 		}
 		else
 		{
-			printf("run last %s\n", curr->lst_arg->val);
+			if (curr->lst_arg)
+				printf("run last %s\n", curr->lst_arg->val);
 			run_one_cmnd_last(msh, curr);
-			
 		}
-
 		curr = curr->next;
 	}
 }
@@ -34,7 +33,14 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	if (!cmnd->pid)
 	{
 		get_redirects(msh, cmnd);
-		run_command(msh, cmnd);
+		if (is_builtin(msh, cmnd->arg[0]))
+		{
+			ft_putstr_fd("Builtin: ", 2);
+			ft_putendl_fd(cmnd->arg[0], 2);
+			exit(cmnd->status);
+		}
+		else
+			run_command(msh, cmnd);
 	}
 	else
 	{
@@ -52,11 +58,15 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 	get_redirects(msh, cmnd);
 	if (cmnd->in)
 		close(cmnd->in);
-	cmnd->pid = fork();
-	if (!cmnd->pid)
-		run_command(msh, cmnd);
-	
-	waitpid(cmnd->pid, &cmnd->status, 0);
+
+
+		cmnd->pid = fork();
+		if (!cmnd->pid)
+			run_command(msh, cmnd);
+		
+		waitpid(cmnd->pid, &cmnd->status, 0);
+
+
 	printf("status last pid = %d\n", cmnd->pid);
 	restore_stnd_io(msh);
 }
@@ -73,7 +83,6 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	if (!cmnd->lst_arg)
 		return ;
 	paths = get_splited_path(msh);
-	cmnd->arg = ft_lst_get_array(cmnd->lst_arg);
 	name = cmnd->arg[0];
 	while (gen_next_path(cmnd->arg, paths, name))
 	{
