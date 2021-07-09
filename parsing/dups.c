@@ -8,6 +8,8 @@ void	save_stnd_io(t_msh *msh)
 
 void	restore_stnd_io(t_msh *msh)
 {
+	close(STDIN);
+	close(STDOUT);
 	dup2(msh->old_in, STDIN);
 	dup2(msh->old_out, STDOUT);
 	// todo clear or close?

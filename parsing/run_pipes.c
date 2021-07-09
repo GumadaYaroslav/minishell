@@ -56,50 +56,24 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
-	get_redirects(msh, cmnd);
-	if (cmnd->in)
-		close(cmnd->in);
-
-
-	cmnd->pid = fork();
-	if (!cmnd->pid)
-		run_command(msh, cmnd);
-	
-	waitpid(cmnd->pid, &cmnd->status, 0);
-
-
-	printf("status last pid = %d\n", cmnd->pid);
-	restore_stnd_io(msh);
-}
-
-
-
-
- 
-void	run_command(t_msh *msh, t_cmnd *cmnd)
-{
-	char	**paths;
-	char	*name;
-
-	if (!cmnd->lst_arg)
-		return ;
-	paths = get_splited_path(msh);
-	name = cmnd->arg[0];
-	while (gen_next_path(cmnd->arg, paths, name))
-	{
-		if (!access(cmnd->arg[0], F_OK)) // TODO! forbidden func
+	get_redirects(msh, cmnd); // need adds checks values
+	if (!cmnd->status) //
+		if (is_builtin(msh, cmnd->arg[0]))
 		{
-			if (!access(cmnd->arg[0], X_OK))
-			{
-				ft_putstr_fd("Execve: ", 2);
-				ft_putendl_fd(cmnd->arg[0], 2);
-				execve(cmnd->arg[0], cmnd->arg, msh->env);
-
-			}
-			break ;
+			ft_putstr_fd("Builtin: ", 2);
+			ft_putendl_fd(cmnd->arg[0], 2);
+			run_builtin(msh, cmnd, cmnd->arg[0]);
 		}
-	}
-	ft_raise_error(ft_strjoin("Command not found: ", name), NULL);
+		else
+		{
+			cmnd->pid = fork();
+			if (!cmnd->pid)
+				run_command(msh, cmnd);
+			waitpid(cmnd->pid, &cmnd->status, 0);
+		}
+	restore_stnd_io(msh); // todo: checks used fds
+	printf("status last pid = %d\n", cmnd->pid);
+	
 }
 
 void	wait_all_pipes(t_msh *msh)
