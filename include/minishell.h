@@ -65,7 +65,7 @@ t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
 // parsing / inicialise
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
-
+int		is_builtin(t_msh *msh, char *name);
 
 
 // parsing / envp
@@ -83,6 +83,7 @@ void	run_commands_via_pipes(t_msh *msh);
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd);
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
 void	run_command(t_msh *msh, t_cmnd *cmnd);
+void	wait_all_pipes(t_msh *msh);
 
 
 // parsing / redirects

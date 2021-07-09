@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 		test_print_command(msh.lst_cmnd);
 
 		run_commands_via_pipes(&msh);
+		wait_all_pipes(&msh);
 
 		msh.lst_cmnd = NULL;
 		// ft_lstclear(&msh.lst_cmnd);
