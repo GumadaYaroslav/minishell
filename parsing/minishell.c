@@ -13,12 +13,10 @@ int	main(int argc, char **argv, char **envp)
 ////MAIN
 	while (true)
 	{
-		printf("wait new command\n");
-		str = readline("msh$ ");
+		str = readline("\033[32mmsh$ \033[0m");
 		add_history(str);
 
 		parsing_by_words(&msh, str);	
-		printf("-------------\n");
 		test_print_command(msh.lst_cmnd);
 
 		run_commands_via_pipes(&msh);

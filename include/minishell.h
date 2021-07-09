@@ -18,6 +18,13 @@
 # define STDOUT 1
 # define OK 1
 # define KO 0
+
+# define DEBUG 1
+# define STND		"\033[0m"
+# define GREEN		"\033[32m"
+# define BLUE		"\033[36m"
+
+
 typedef struct s_cmnd
 {
 	struct s_cmnd	*next;
@@ -104,10 +111,6 @@ char	**get_splited_path(t_msh *msh);
 int		gen_next_path(char **argv, char **paths, char *name);
 int		ft_is_path(char *s);
 
-// parcing / tests_func
-void 	test_print_arr(char **arr);
-void	test_print_command(t_cmnd *cmnd);
-void	test_print_lst(t_list *lst);
 
 // parsing / ft_lstfunc
 t_list		*ft_lstfind(t_list *lst, const char *key);
@@ -121,6 +124,13 @@ void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 //parsing / raiser_error
 void	ft_raise_error(char *msg, char *errno_msg);
 
+
+// parcing / tests_func
+void 	test_print_arr(char **arr);
+void	test_print_command(t_cmnd *cmnd);
+void	test_print_lst(t_list *lst);
+void	printos(char *msg, char *str);
+void	printod(char *msg, int x);
 
 ////////////////// pipex block ///////////////
 
