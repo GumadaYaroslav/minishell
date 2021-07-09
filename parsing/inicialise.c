@@ -24,7 +24,7 @@ int	is_builtin(t_msh *msh, char *name)
 		return (false);
 	i = 0;
 	while (msh->builtin[i])
-		if (!ft_strncmp(msh->builtin[i], name, ft_strlen(name)))
+		if (!ft_strncmp(msh->builtin[i++], name, ft_strlen(name)))
 			return (true);
 	return (false);
 }

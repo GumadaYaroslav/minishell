@@ -33,6 +33,7 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	if (!cmnd->pid)
 	{
 		get_redirects(msh, cmnd);
+		ft_putendl_fd("PIU: ", 2);
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
 			ft_putstr_fd("Builtin: ", 2);
@@ -60,11 +61,11 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 		close(cmnd->in);
 
 
-		cmnd->pid = fork();
-		if (!cmnd->pid)
-			run_command(msh, cmnd);
-		
-		waitpid(cmnd->pid, &cmnd->status, 0);
+	cmnd->pid = fork();
+	if (!cmnd->pid)
+		run_command(msh, cmnd);
+	
+	waitpid(cmnd->pid, &cmnd->status, 0);
 
 
 	printf("status last pid = %d\n", cmnd->pid);
@@ -90,7 +91,8 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 		{
 			if (!access(cmnd->arg[0], X_OK))
 			{
-				printf("execve %s\n", cmnd->arg[0]);
+				ft_putstr_fd("Execve: ", 2);
+				ft_putendl_fd(cmnd->arg[0], 2);
 				execve(cmnd->arg[0], cmnd->arg, msh->env);
 
 			}
@@ -98,4 +100,17 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 		}
 	}
 	ft_raise_error(ft_strjoin("Command not found: ", name), NULL);
+}
+
+void	wait_all_pipes(t_msh *msh)
+{
+	t_cmnd	*cmnd;
+
+	cmnd = msh->lst_cmnd;
+	ft_putendl_fd("wait pids", 2);
+	while(cmnd && cmnd->next)
+	{
+		waitpid(cmnd->pid, &cmnd->status, 0);
+		cmnd = cmnd->next;
+	}
 }
