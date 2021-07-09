@@ -74,12 +74,15 @@ char		*get_val_from_keyval(const char *keyval);
 char		*ft_chrdup(const char ch);
 
 // parsing / run_command
+void	run_command(t_msh *msh, t_cmnd *cmnd);
+void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name);
+
+
+// parsing / run_pipes
 void	run_commands_via_pipes(t_msh *msh);
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd);
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
-void	run_command(t_msh *msh, t_cmnd *cmnd);
 void	wait_all_pipes(t_msh *msh);
-
 
 // parsing / redirects
 void	get_redirects(t_msh *msh, t_cmnd *cmnd);
