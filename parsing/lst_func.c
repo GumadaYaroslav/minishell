@@ -124,7 +124,7 @@ char *ft_lstdup_str(t_list *lst)
 void	ft_lst_add_end(t_list **lst, t_list *new)
 {
 	if (!new || !new->val)
-		ft_raise_error("ALLLOHA ERROR", "NULL");
+		ft_critical_error("ALLLOHA ERROR", "NULL");
 	if (*lst)
 		ft_lstlast(*lst)->next = new;
 	else

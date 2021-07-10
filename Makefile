@@ -8,6 +8,7 @@ SRCS_FILES	= 		envp.c \
 					lst_func.c \
 					minishell.c \
 					parsing.c \
+					parsing_utils.c \
 					run_pipes.c \
 					run_command.c \
 					redirects.c \

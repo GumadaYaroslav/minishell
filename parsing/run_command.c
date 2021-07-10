@@ -11,7 +11,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	name = cmnd->arg[0];
 	while (gen_next_path(cmnd->arg, paths, name))
 	{
-		if (!access(cmnd->arg[0], F_OK)) // TODO! forbidden func
+		if (!access(cmnd->arg[0], F_OK)) // TODO! forbidden func!
 		{
 			if (!access(cmnd->arg[0], X_OK))
 			{
@@ -22,7 +22,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 			break ;
 		}
 	}
-	ft_raise_error(ft_strjoin("Command not found: ", name), NULL);
+	ft_critical_error(ft_strjoin("Command not found: ", name), 0);
 }
 
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)

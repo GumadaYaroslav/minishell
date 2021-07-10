@@ -13,7 +13,7 @@ void	run_commands_via_pipes(t_msh *msh)
 			if (curr->lst_arg)
 				printos("run one", curr->lst_arg->val);
 			if (pipe(curr->pipe_fd) < 0)
-				ft_raise_error(NULL, NULL); // здесь нужно переделать на функцию явного брэйка и возврата в мэйн
+				return (ft_raise_error(msh, NULL, NULL)); // здесь нужно переделать на функцию явного брэйка и возврата в мэйн
 			curr->out = curr->pipe_fd[1];
 			curr->next->in = curr->pipe_fd[0];
 			run_one_cmnd(msh, curr);
@@ -33,12 +33,12 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	cmnd->pid = fork();
 	if (!cmnd->pid)
 	{
-		get_redirects(msh, cmnd);
+		get_redirects(msh, cmnd, true);
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
 			printos("Builtin", cmnd->arg[0]);
 			run_builtin(msh, cmnd, cmnd->arg[0]);
-			exit(cmnd->status);
+			exit(msh->status);
 		}
 		else
 			run_command(msh, cmnd);
@@ -56,8 +56,8 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
-	get_redirects(msh, cmnd); // need adds checks values
-	if (!cmnd->status) //
+	get_redirects(msh, cmnd, false); // need adds checks values
+	if (!msh->status) //
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
 			printos("Builtin", cmnd->arg[0]);
@@ -68,7 +68,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			cmnd->pid = fork();
 			if (!cmnd->pid)
 				run_command(msh, cmnd);
-			waitpid(cmnd->pid, &cmnd->status, 0);
+			waitpid(cmnd->pid, &msh->status, 0);
 		}
 	restore_stnd_io(msh); // todo: checks used fds
 	printod("status last pid", cmnd->pid);
@@ -83,7 +83,7 @@ void	wait_all_pipes(t_msh *msh)
 	printos(0, "wait pids");
 	while(cmnd && cmnd->next)
 	{
-		waitpid(cmnd->pid, &cmnd->status, 0);
+		waitpid(cmnd->pid, &msh->status, 0);
 		cmnd = cmnd->next;
 	}
 }

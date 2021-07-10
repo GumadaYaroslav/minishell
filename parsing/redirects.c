@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	get_redirects(t_msh *msh, t_cmnd *cmnd)
+void	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 {
 	t_list	*redirect;
 
@@ -17,6 +17,7 @@ void	get_redirects(t_msh *msh, t_cmnd *cmnd)
 			;
 		redirect = redirect->next;
 	}
-	dups_input_output(msh, cmnd);
+	dups_input_output(msh, cmnd, is_fork);
 
 }
+
