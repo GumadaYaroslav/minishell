@@ -35,7 +35,7 @@ typedef struct s_cmnd
 	int				in;
 	int				out;
 	pid_t			pid;
-	int				status;
+
 
 
 }	t_cmnd;
@@ -50,6 +50,8 @@ typedef	struct s_msh
 	t_cmnd	*lst_cmnd;
 	int		old_in;
 	int		old_out;
+	int		status;
+	int		old_status;
 }	t_msh;
 
 
@@ -61,14 +63,21 @@ int ft_exit(int argc, char **argv, char **env, t_msh *msh);
 int	ft_env(char **argv, char **env, t_msh *msh);
 int	ft_pwd(void);
 // parsing / parsing
-void	parsing_keyword(t_msh *msh, char *s, size_t *i);
+int		parsing(t_msh *msh, char *s);
+void	parsing_check_pipes(t_msh *msh, char *s);
 void	parsing_by_words(t_msh *msh, char *s);
-void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
-char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
-char	*get_key(char quote, char *s, size_t *i);
+void	parsing_keyword(t_msh *msh, char *s, size_t *i);
 
+
+char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
+
+
+// parsing / utils
 t_cmnd	*new_command(void);
-t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
+void	parsing_word(t_msh *msh, char *s, size_t *i, t_list **chars);
+void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
+char	*get_key(char quote, char *s, size_t *i);
+// t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
 // parsing / inicialise
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
@@ -97,16 +106,16 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
 void	wait_all_pipes(t_msh *msh);
 
 // parsing / redirects
-void	get_redirects(t_msh *msh, t_cmnd *cmnd);
+void	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
 
 
 
 // parsing / dups
 void	save_stnd_io(t_msh *msh);
 void	restore_stnd_io(t_msh *msh);
-void	dups_input_output(t_msh *msh, t_cmnd *cmnd);
+void	dups_input_output(t_msh *msh, t_cmnd *cmnd, bool is_fork);
 
-//parsing / path_generator
+// parsing / path_generator
 char	**get_splited_path(t_msh *msh);
 int		gen_next_path(char **argv, char **paths, char *name);
 int		ft_is_path(char *s);
@@ -122,7 +131,8 @@ void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 
 
 //parsing / raiser_error
-void	ft_raise_error(char *msg, char *errno_msg);
+void	ft_critical_error(char *msg, char *errno_msg);
+void	ft_raise_error(t_msh *msh, char *msg, char *errno_msg);
 
 
 // parcing / tests_func

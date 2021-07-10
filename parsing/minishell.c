@@ -16,12 +16,14 @@ int	main(int argc, char **argv, char **envp)
 		str = readline("\033[32mmsh$ \033[0m");
 		add_history(str);
 
-		parsing_by_words(&msh, str);	
-		test_print_command(msh.lst_cmnd);
-
-		run_commands_via_pipes(&msh);
-		wait_all_pipes(&msh);
-
+		if (!parsing(&msh, str))
+		{
+			run_commands_via_pipes(&msh);
+			wait_all_pipes(&msh);
+		}	
+		
+		msh.old_status = msh.status;
+		msh.status = 0;
 		msh.lst_cmnd = NULL;
 		// ft_lstclear(&msh.lst_cmnd);
 			// todo clear

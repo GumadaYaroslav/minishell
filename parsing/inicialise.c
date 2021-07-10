@@ -13,6 +13,7 @@ void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp)
 	msh->env = ft_lst_get_array(msh->lst_env);
 	msh->builtin = ft_split(BUILTINS, ':');
 	msh->cmnd = NULL;
+	msh->status = 0;
 
 }
 

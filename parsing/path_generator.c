@@ -42,7 +42,7 @@ int	gen_next_path(char **argv, char **paths, char *name)
 		temp = ft_strjoin(paths[z - 1], "/");
 		argv[0] = ft_strjoin(temp, name);
 		if (!temp || !argv[0])
-			ft_raise_error(NULL, NULL);
+			ft_critical_error(NULL, NULL);
 		free(temp);
 	}
 	z++;
@@ -77,8 +77,8 @@ int	my_open(t_param *p, char *fname, int mode)
 	}
 	else
 		fd = -1;
-	if (fd < 0)
-		ft_raise_error(NULL, fname);
+	// if (fd < 0)
+	// 	ft_raise_error(NULL, fname);
 	return (fd);
 }
 
