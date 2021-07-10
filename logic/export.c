@@ -1,34 +1,16 @@
 #include "minishell.h"
 
-void	ft_put_str_until_chr(char *str, char c)
+int	ft_export(char **argv, t_msh *msh)
 {
 	int	i;
 
-	i = 0;
-	while(str[i] && str[i] != c)
+	i = 1;
+	if(ft_split_len(argv) == 1)
+		print_export(msh->env);
+	while(argv[i])
 	{
-		write(1, &str[i], 1);
+		insert_or_update_elem_from_envp(msh, argv[i]);
 		i++;
 	}
-}
-
-void	print_export(char **env)
-{
-	int	i;
-	int j;
-
-	i = 0;
-	while(env[i])
-	{
-		j = 0;
-		ft_putstr_fd(1, "declare -x");
-		ft_putstr_fd(1, ft_substr);
-
-		i++;
-	}
-}
-
-int	ft_export(char **argv, t_msh msh)
-{
-	
+	return (0);
 }

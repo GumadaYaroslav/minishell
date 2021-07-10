@@ -27,11 +27,8 @@ void	remove_elem_from_envp(t_msh *msh, const char *key)
 //Вставляет или обновляет элемент
 void	insert_or_update_elem_from_envp(t_msh *msh, const char *keyval)
 {
-	if  (ft_ch_in_str('=', (char *)keyval))
-	{
 		remove_elem_from_envp(msh, keyval);
 		ft_lstadd_front(&msh->lst_env, ft_lstnew(ft_strdup(keyval)));
 		ft_split_free(msh->env);
 		msh->env = ft_lst_get_array(msh->lst_env);
-	}
 }

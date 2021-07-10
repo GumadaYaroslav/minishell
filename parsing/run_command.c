@@ -28,19 +28,19 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)
 {
 	if (!ft_strncmp(name, "echo", ft_strlen(name)))
-		; // add your funcs
+		ft_echo(msh, cmnd->arg, msh->env); // add your funcs
 	else if (!ft_strncmp(name, "cd", ft_strlen(name)))
 		;
 	else if (!ft_strncmp(name, "pwd", ft_strlen(name)))
-		;
+		ft_pwd();
 	else if (!ft_strncmp(name, "export", ft_strlen(name)))
-		;
+		ft_export(cmnd->arg, msh);
 	else if (!ft_strncmp(name, "unset", ft_strlen(name)))
-		;
+		ft_unset(cmnd->arg, msh);
 	else if (!ft_strncmp(name, "env", ft_strlen(name)))
-		;
+		ft_env(cmnd->arg, msh->env, msh);
 	else if (!ft_strncmp(name, "exit", ft_strlen(name)))
-		;
+		ft_exit(cmnd->arg, msh);
 	else
 		ft_putendl_fd("Impossible!", 2);
 }

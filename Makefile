@@ -15,7 +15,7 @@ SRCS_FILES	= 		envp.c \
 					dups.c \
 					path_generator.c \
 					raise_error.c \
-					tests_func.c 
+					tests_func.c \
 
 SRCS_PIPEX	= 		p_pipes.c \
 					p_utils.c \
@@ -26,6 +26,9 @@ SRCS_COMMANDS =		exit.c \
 					echo.c \
 					env.c \
 					pwd.c \
+					unset.c \
+					export.c \
+					export_print.c
 					
 
 PARSING_DIR	=	parsing/
@@ -56,9 +59,9 @@ all:		$(NAME)
 %.o:		%.c
 			$(CC) $(CFLAGS) -c -g $< -o $@ $(INCLUDE)
 		
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) $(OBJS_C)
 			$(MAKE) -C $(dir $(LIB))
-			$(CC) $(INCLUDE) -o $(NAME) $(OBJS)  $(LIB)  $(RDL)
+			$(CC) $(INCLUDE) -o $(NAME) $(OBJS) $(OBJS_C) $(LIB)  $(RDL)
 
 pipex:		$(OBJS_P)
 			$(MAKE) -C $(dir $(LIB))

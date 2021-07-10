@@ -19,13 +19,7 @@
 # define OK 1
 # define KO 0
 
-# define DEBUG 1
-# define STND		"\033[0m"
-# define GREEN		"\033[32m"
-# define BLUE		"\033[36m"
-
-
-# define DEBUG 1
+# define DEBUG 0
 # define STND		"\033[0m"
 # define GREEN		"\033[32m"
 # define BLUE		"\033[36m"
@@ -64,10 +58,13 @@ typedef	struct s_msh
 // parcing / minishell
 // int		main(int argc, char **argv, char **envp);
 
-int ft_echo(t_msh *msh, char **argv, char **env);
-int ft_exit(int argc, char **argv, char **env, t_msh *msh);
-int	ft_env(char **argv, char **env, t_msh *msh);
-int	ft_pwd(void);
+int 	ft_echo(t_msh *msh, char **argv, char **env);
+int 	ft_exit(char **argv, t_msh *msh);
+int		ft_env(char **argv, char **env, t_msh *msh);
+int		ft_unset(char **argv, t_msh *msh);
+int		ft_pwd(void);
+void	print_export(char **env);
+int		ft_export(char **argv, t_msh *msh);	
 // parsing / parsing
 int		parsing(t_msh *msh, char *s);
 void	parsing_check_pipes(t_msh *msh, char *s);
