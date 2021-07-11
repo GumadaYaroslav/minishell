@@ -64,7 +64,8 @@ int		ft_env(char **argv, char **env, t_msh *msh);
 int		ft_unset(char **argv, t_msh *msh);
 int		ft_pwd(void);
 void	print_export(char **env);
-int		ft_export(char **argv, t_msh *msh);	
+int		ft_export(char **argv, t_msh *msh);
+int 	ft_strcmp(const char *s1, const char *s2);
 // parsing / parsing
 int		parsing(t_msh *msh, char *s);
 void	parsing_check_pipes(t_msh *msh, char *s);
