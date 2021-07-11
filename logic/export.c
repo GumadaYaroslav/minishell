@@ -43,16 +43,45 @@ void	sort_the_env(t_msh *msh, int len_env)
 	msh->lst_env = ft_split_to_list(msh->env);
 }
 
+static int ft_write_error_export(char *exp)
+{
+	write(2, "export: '", 10);
+	write(2, exp, ft_strlen(exp));
+	write(2, "': not a valid identifier\n", 26);
+	return (1);
+}
+
+int check_export(char *exp)
+{
+	int	i;
+
+	i = 0;
+	if (exp[0] == '=' || ft_isdigit(exp[0]) || !ft_isalpha(exp[0]))
+		return (ft_write_error_export(exp));
+	while (exp[i] && exp[i] != 0)
+	{
+		if (!ft_isalpha(exp[i]) && !ft_isdigit(exp[i]))
+			return (ft_write_error_export(exp));
+		i++;
+	}
+	return (0);
+}
+
 int	ft_export(char **argv, t_msh *msh)
 {
 	int	i;
 
 	i = 1;
-	if(ft_split_len(argv) == 1)
-		print_export(msh->env);
-	while(argv[i])
+	if (ft_split_len(argv) == 1)
 	{
-		insert_or_update_elem_from_envp(msh, argv[i]);
+		sort_the_env(msh, ft_split_len(msh->env));
+		print_export(msh->env);
+		return (0);
+	}
+	while (argv[i])
+	{
+		if (!check_export(argv[i]))
+			insert_or_update_elem_from_envp(msh, argv[i]);
 		i++;
 	}
 	sort_the_env(msh, ft_split_len(msh->env));
