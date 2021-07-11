@@ -38,10 +38,8 @@ void	parsing_by_words(t_msh *msh, char *s)
 
 	msh->cmnd = new_command();
 	i = 0;
-	while(s[i] && s[i] != '\n')
+	while(s[i] && s[i] != '\n' && !msh->status)
 	{
-		if (msh->status)
-			return ;
 		if (s[i] == '|')
 		{
 			ft_cmnd_add_end(&msh->lst_cmnd, msh->cmnd);

@@ -8,6 +8,7 @@ t_cmnd	*new_command(void)
 	if (!new_cmnd)
 		ft_critical_error(NULL, NULL);
 	new_cmnd->next = NULL;
+	new_cmnd->arg = NULL;
 	return new_cmnd;
 }
 
@@ -46,8 +47,8 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 			msg = ft_strjoin("Unexpected error near ", keyword);
 			ft_raise_error(msh, msg, 0);
 			free(msg);
-			free(keyword);
-			return ;
+			// free(keyword);
+			// return ;
 		}
 		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));
 	}

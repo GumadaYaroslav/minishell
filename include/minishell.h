@@ -25,12 +25,6 @@
 # define BLUE		"\033[36m"
 
 
-# define DEBUG 1
-# define STND		"\033[0m"
-# define GREEN		"\033[32m"
-# define BLUE		"\033[36m"
-
-
 typedef struct s_cmnd
 {
 	struct s_cmnd	*next;
@@ -63,6 +57,8 @@ typedef	struct s_msh
 
 // parcing / minishell
 // int		main(int argc, char **argv, char **envp);
+void	cleaning(t_msh *msh, char *str);
+void	ft_lstclear_cmnds(t_cmnd **cmnd);
 
 int ft_echo(t_msh *msh, char **argv, char **env);
 int ft_exit(int argc, char **argv, char **env, t_msh *msh);

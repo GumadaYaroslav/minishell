@@ -39,7 +39,7 @@ OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 OBJS_P		=	$(patsubst %.c,%.o,$(SRCS_P))
 OBJS_C		=	$(patsubst %.c,%.o,$(SRCS_C))
 
-INCLUDE		=	-I./include -I./libs/libft/ -I./libs/readline/include/ -I./libs/readline/include/readline
+INCLUDE		=	-I./include -I./libs/libft/
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -MMD

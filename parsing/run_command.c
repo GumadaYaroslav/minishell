@@ -6,7 +6,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	char	*name;
 
 	if (!cmnd->lst_arg)
-		return ;
+		exit (0);
 	paths = get_splited_path(msh);
 	name = cmnd->arg[0];
 	while (gen_next_path(cmnd->arg, paths, name))

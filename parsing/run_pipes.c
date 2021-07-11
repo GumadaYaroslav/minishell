@@ -13,19 +13,22 @@ void	run_commands_via_pipes(t_msh *msh)
 			if (curr->lst_arg)
 				printos("run one", curr->lst_arg->val);
 			if (pipe(curr->pipe_fd) < 0)
-				return (ft_raise_error(msh, NULL, NULL)); // здесь нужно переделать на функцию явного брэйка и возврата в мэйн
+				return (ft_raise_error(msh, NULL, NULL));
 			curr->out = curr->pipe_fd[1];
 			curr->next->in = curr->pipe_fd[0];
 			run_one_cmnd(msh, curr);
 		}
 		else
 		{
-			
+			if (curr->lst_arg)
 				printos("run last", curr->lst_arg->val);
+			else
+				printos("run last", "but it's empty");
 			run_one_cmnd_last(msh, curr);
 		}
 		curr = curr->next;
 	}
+	wait_all_pipes(msh);
 }
 
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
@@ -56,8 +59,9 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
-	get_redirects(msh, cmnd, false); // need adds checks values
-	if (!msh->status) //
+	get_redirects(msh, cmnd, false);
+	if (!msh->status)
+	{
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
 			printos("Builtin", cmnd->arg[0]);
@@ -70,6 +74,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 				run_command(msh, cmnd);
 			waitpid(cmnd->pid, &msh->status, 0);
 		}
+	}
 	restore_stnd_io(msh); // todo: checks used fds
 	printod("status last pid", cmnd->pid);
 	
