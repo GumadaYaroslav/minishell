@@ -1,33 +1,36 @@
 #include "minishell.h"
 
-void	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
+int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 {
 	t_list	*redirect;
-
+	
+	cmnd->is_fork = is_fork;
 	redirect = cmnd->redirects;
-	while (redirect)
+	while (redirect && !msh->status)
 	{
 		if (!ft_strncmp(redirect->val, "<<", 2))
-			;
+			double_left_arrow(msh, cmnd, redirect->val + 2);
 		else if (!ft_strncmp(redirect->val, "<", 1))
-			;
+			redirect_open_file(msh, cmnd, redirect->val + 1, L_ARR);
 		else if (!ft_strncmp(redirect->val, ">>", 2))
-			;
+			redirect_open_file(msh, cmnd, redirect->val + 2, R_D_ARR);
 		else if (!ft_strncmp(redirect->val, ">", 1))
-			;
+			redirect_open_file(msh, cmnd, redirect->val + 1, R_ARR);
 		redirect = redirect->next;
 	}
-	dups_input_output(msh, cmnd, is_fork);
+	if (!msh->status)
+		dups_input_output(msh, cmnd);
+	return (msh->status);
 }
 
-void double_left_arrow(t_msh *msh, t_cmnd *cmnd, bool is_fork)
+void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	int	fd[2];
 	int	pid;
 
 	if (pipe(fd) < 0)
 	{
-		if (is_fork)
+		if (cmnd->is_fork)
 			ft_critical_error(NULL, NULL);
 		else
 			ft_raise_error(msh, NULL, NULL);
@@ -40,27 +43,52 @@ void double_left_arrow(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 		close(fd[1]);
 	}
 	else
-		double_left_arrow_read(p, fd);
+	{
+		close(fd[0]);
+		cmnd->out = fd[1];
+		double_left_arrow_read(msh, cmnd, stop_word);
+	}
 }
 
-void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, bool is_fork)
+void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	char	*line;
-	int		res;
 
-	res = 1;
-	while (res)
+	(void)msh;
+	while (true)
 	{
-		ft_putstr_fd("heredoc> ", 1);
-		res = ne_gnl(0, &line, p->stop_word);
-		if (res < 0)
-			ft_raise_error(NULL, NULL);
-		if (res)
-			ft_putendl_fd(line, fd[1]);
+		line = readline("> ");
+		if (!ft_strncmp(line, stop_word, ft_strlen(stop_word) + 1))
+			break ;
+		ft_putendl_fd(line, cmnd->out);
 		free(line);
 	}
-	p->infile = NULL;
-	close(fd[0]);
-	close(fd[1]);
+	close(cmnd->out);
 	exit(0);
+}
+
+void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode)
+{
+	if (mode == L_ARR)
+	{
+		if (cmnd->in)
+			close(cmnd->in);
+		cmnd->in = open(fname, O_RDONLY);
+	}
+	else
+	{
+		if (cmnd->out)
+			close(cmnd->out);
+		if (mode == R_ARR)
+			cmnd->out = open(fname, O_RDWR | O_CREAT | O_TRUNC, 00774);
+		else
+			cmnd->out = open(fname, O_WRONLY | O_APPEND | O_CREAT, 00774);
+	}
+	if (cmnd->in < 0 || cmnd->out < 0)
+	{
+		if (cmnd->is_fork)
+			ft_critical_error(NULL, fname);
+		else
+			ft_raise_error(msh, NULL, fname);
+	}
 }

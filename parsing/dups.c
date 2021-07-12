@@ -18,13 +18,13 @@ void	restore_stnd_io(t_msh *msh)
 		ft_raise_error(msh, 0, 0);
 }
 
-void	dups_input_output(t_msh *msh, t_cmnd *cmnd, bool is_fork)
+void	dups_input_output(t_msh *msh, t_cmnd *cmnd)
 {
 	if (cmnd->in)
 	{
 		if (dup2(cmnd->in, STDIN) < 0) // заворачиваем вывод для непервого пайпа
 		{
-			if (is_fork)
+			if (cmnd->is_fork)
 				ft_critical_error(0, 0);
 			return (ft_raise_error(msh, 0, 0));
 		}
@@ -34,7 +34,7 @@ void	dups_input_output(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 	{
 		if (dup2(cmnd->out, STDOUT) < 0) // заворачиваем вывод для непервого пайпа
 		{
-			if (is_fork)
+			if (cmnd->is_fork)
 				ft_critical_error(0, 0);
 			return (ft_raise_error(msh, 0, 0));
 		}

@@ -36,15 +36,17 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	cmnd->pid = fork();
 	if (!cmnd->pid)
 	{
-		get_redirects(msh, cmnd, true);
-		if (is_builtin(msh, cmnd->arg[0]))
+		if (!get_redirects(msh, cmnd, true))
 		{
-			printos("Builtin", cmnd->arg[0]);
-			run_builtin(msh, cmnd, cmnd->arg[0]);
-			exit(msh->status);
+			if (is_builtin(msh, cmnd->arg[0]))
+			{
+				printos("Builtin", cmnd->arg[0]);
+				run_builtin(msh, cmnd, cmnd->arg[0]);
+				exit(msh->status);
+			}
+			else
+				run_command(msh, cmnd);
 		}
-		else
-			run_command(msh, cmnd);
 	}
 	else
 	{

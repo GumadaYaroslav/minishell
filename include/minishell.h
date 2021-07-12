@@ -35,6 +35,7 @@ typedef struct s_cmnd
 	int				in;
 	int				out;
 	pid_t			pid;
+	bool			is_fork;
 
 
 
@@ -108,14 +109,15 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
 void	wait_all_pipes(t_msh *msh);
 
 // parsing / redirects
-void	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
-
-
+int		get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
+void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word);
+void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word);
+void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode);
 
 // parsing / dups
 void	save_stnd_io(t_msh *msh);
 void	restore_stnd_io(t_msh *msh);
-void	dups_input_output(t_msh *msh, t_cmnd *cmnd, bool is_fork);
+void	dups_input_output(t_msh *msh, t_cmnd *cmnd);
 
 // parsing / path_generator
 char	**get_splited_path(t_msh *msh);
