@@ -16,6 +16,8 @@ void	restore_stnd_io(t_msh *msh)
 		ft_raise_error(msh, 0, 0);
 	if (dup2(msh->old_out, STDOUT) < 0)
 		ft_raise_error(msh, 0, 0);
+	close(msh->old_in);
+	close(msh->old_out);
 }
 
 void	dups_input_output(t_msh *msh, t_cmnd *cmnd)
