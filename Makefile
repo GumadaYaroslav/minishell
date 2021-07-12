@@ -43,11 +43,9 @@ INCLUDE		=	-I./include -I./libs/libft/
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -MMD
-# CFLAGS		=	-MMD
 RM			=	rm -f
 
 LIB = ./libs/libft/libft.a
-# RDL = -L./libs/readline/lib/ -lreadline
 RDL = -lreadline
 
 
