@@ -18,5 +18,5 @@ a.out
 
 minishell
 out*
-pipex
-
+tests/
+readline_do_del/

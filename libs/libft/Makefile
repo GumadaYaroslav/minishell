@@ -10,7 +10,7 @@ SRCS		= 	ft_atoi.c		ft_bzero.c		ft_calloc.c		ft_isalnum.c \
 				ft_strnstr.c	ft_strrchr.c	ft_strtrim.c	ft_substr.c \
 				ft_tolower.c	ft_toupper.c	\
 				ft_split_set.c	ft_cnt_ch.c 	ft_atoi_long.c	ft_split_free.c	\
-				ft_split_len.c
+				ft_split_len.c	ft_malloc_x.c
 			
 SRCS_B		=	ft_lstnew.c			ft_lstadd_front.c		ft_lstsize.c \
 				ft_lstlast.c 		ft_lstadd_back.c		ft_lstdelone.c \

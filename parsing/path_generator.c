@@ -1,6 +1,8 @@
 #include "minishell.h"
 
-
+/*
+**	@brief	Get the splited by ':' PATH enviroment object
+*/
 char	**get_splited_path(t_msh *msh)
 {
 	char 	*val;
@@ -12,16 +14,11 @@ char	**get_splited_path(t_msh *msh)
 	return (paths);
 }
 
-// int	gen_next_path(t_msh *msh, t_cmnd *cmnd)
-// {
-// 	// static
-
-// 	if (!cmnd->lst_arg)
-// 		return (0);
-	
-// 	char *name = 
-// }
-
+/*
+**	@brief		generates a full path for the program using the proggram name
+**				and the next path from enviroment PATH	
+**	@return	int		0 if cannot generates new full path, else 1
+*/
 int	gen_next_path(char **argv, char **paths, char *name)
 {
 	static int	z;
@@ -50,43 +47,10 @@ int	gen_next_path(char **argv, char **paths, char *name)
 }
 
 /*
-**	@brief	open input or output files. create output file if not exist
-**	
-**	@param	fname		string with file name
-**	@param	is_infile	is input file
-**	@return	int			file descriptor
-*/
-int	my_open(t_param *p, char *fname, int mode)
-{
-	int	fd;
-
-	if (mode == L_ARR)
-	{
-		fd = open(fname, O_RDONLY);
-		p->infile = NULL;
-	}
-	else if (mode == R_ARR)
-	{
-		fd = open(fname, O_RDWR | O_CREAT | O_TRUNC, 00774);
-		p->outfile = NULL;
-	}
-	else if (mode == R_D_ARR)
-	{
-		fd = open(fname, O_WRONLY | O_APPEND | O_CREAT, 00774);
-		p->outfile = NULL;
-	}
-	else
-		fd = -1;
-	// if (fd < 0)
-	// 	ft_raise_error(NULL, fname);
-	return (fd);
-}
-
-/*
 **	@brief	checks if the program name starts from character '/'
 **	
-**	@param	s	pointer to string
-**	@return	int	1 if is path
+**	@param	s		pointer to string
+**	@return	int		1 if is path, else 0
 */
 int	ft_is_path(char *s)
 {

@@ -68,6 +68,7 @@ char		**ft_split_set(char const *s, char *c);
 void		ft_split_free(char **arr);
 int			ft_split_len(char **arr);
 long long	ft_atoi_long(const char *str, long long *x);
+void		*ft_malloc_x(size_t size);
 
 // lst with char
 t_list		*ft_lstnew(char *val);

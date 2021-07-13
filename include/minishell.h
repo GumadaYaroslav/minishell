@@ -12,18 +12,26 @@
 
 # include "libft.h"
 
+# define MSH_AVE	"\033[32mmsh$ \033[0m"
+# define BUILTINS	"echo:cd:pwd:export:unset:env:exit"
 
-# define BUILTINS "echo:cd:pwd:export:unset:env:exit"
-# define STDIN 0
-# define STDOUT 1
-# define OK 1
-# define KO 0
+# define OK			1
+# define KO			0
 
-# define DEBUG 0
+# define L_ARR		1
+# define R_ARR 		2
+# define R_D_ARR	3
+# define STDIN		0
+# define STDOUT		1
+
+# define ERR_PIPE	"msh: Syntax error near unexpected token '|'"
+# define ERR_NEWL	"msh: Syntax error near newline"
+
 # define STND		"\033[0m"
 # define GREEN		"\033[32m"
 # define BLUE		"\033[36m"
 
+# define DEBUG		1
 
 typedef struct s_cmnd
 {
@@ -35,9 +43,7 @@ typedef struct s_cmnd
 	int				in;
 	int				out;
 	pid_t			pid;
-
-
-
+	bool			is_fork;
 }	t_cmnd;
 
 typedef	struct s_msh
@@ -45,7 +51,6 @@ typedef	struct s_msh
 	t_list	*lst_env;
 	char	**env;
 	char	**builtin;
-
 	t_cmnd	*cmnd;
 	t_cmnd	*lst_cmnd;
 	int		old_in;
@@ -67,26 +72,34 @@ void	print_export(char **env);
 int		ft_export(char **argv, t_msh *msh);
 int 	ft_strcmp(const char *s1, const char *s2);
 char	**my_lst_get_array(t_list *lst);
+
+// parsing / inicialise
+
+void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+void	update_shlvl(t_msh *msh);
+void	cleaning(t_msh *msh, char *str);
+void	ft_lstclear_cmnds(t_cmnd **cmnd);
+
 // parsing / parsing
+
 int		parsing(t_msh *msh, char *s);
 void	parsing_check_pipes(t_msh *msh, char *s);
 void	parsing_by_words(t_msh *msh, char *s);
-void	parsing_keyword(t_msh *msh, char *s, size_t *i);
+void	parsing_word(t_msh *msh, char *s, size_t *i);
+void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars);
 
+// parsing / parsing_utils
 
-char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
-
-
-// parsing / utils
 t_cmnd	*new_command(void);
-void	parsing_word(t_msh *msh, char *s, size_t *i, t_list **chars);
+char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
 void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
 char	*get_key(char quote, char *s, size_t *i);
-// t_cmnd	*inicialise_cmnd(t_msh *msh, size_t ind);
 
-// parsing / inicialise
-void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
-int		is_builtin(t_msh *msh, char *name);
+// parsing / dups
+
+void	save_stnd_io(t_msh *msh);
+void	restore_stnd_io(t_msh *msh);
+void	dups_input_output(t_msh *msh, t_cmnd *cmnd);
 
 
 // parsing / envp
@@ -102,6 +115,7 @@ char		*ft_chrdup(const char ch);
 // parsing / run_command
 void	run_command(t_msh *msh, t_cmnd *cmnd);
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name);
+int		is_builtin(t_msh *msh, char *name);
 
 
 // parsing / run_pipes
@@ -111,14 +125,11 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
 void	wait_all_pipes(t_msh *msh);
 
 // parsing / redirects
-void	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
+int		get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
+void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word);
+void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word);
+void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode);
 
-
-
-// parsing / dups
-void	save_stnd_io(t_msh *msh);
-void	restore_stnd_io(t_msh *msh);
-void	dups_input_output(t_msh *msh, t_cmnd *cmnd, bool is_fork);
 
 // parsing / path_generator
 char	**get_splited_path(t_msh *msh);
@@ -147,54 +158,6 @@ void	test_print_lst(t_list *lst);
 void	printos(char *msg, char *str);
 void	printod(char *msg, int x);
 
-////////////////// pipex block ///////////////
-
-# define L_ARR 1
-# define R_ARR 2
-# define R_D_ARR 3
-
-typedef struct s_param
-{
-	char	*infile;
-	char	*outfile;
-	char	*stop_word;
-	char	**paths;
-	int		paths_len;
-	int		fd[2];
-	pid_t	pid;
-	char	**argv;
-	char	**envp;
-	size_t	cnt_cmnds;
-	size_t	ind;
-	char	***cmnds;
-}	t_param;
-
-
-
-
-
-// // p_pipes
-// // int		main(int argc, char **argv, char **envp);
-// void	pipex(t_param *p);
-// void	run_command(t_param *p, size_t i);
-
-// // p_raise_error
-// void	ft_raise_error(char *msg, char *errno_msg);
-// int		ft_is_path(char *s);
-
-// // p_redirects
-// int		ne_gnl(int fd, char **line, const char *keyword);
-// void	left_double_arrow(t_param *p);
-// void	child_left_double_arrow(t_param *p, int *fd);
-
-// // p_utils
-// void	inicialize_param(int argc, char **argv, char **envp, t_param *p);
-// void	get_commands(int argc, char **argv, t_param *p);
-// void	get_paths(t_param *p);
-// int		get_next_path(t_param *p, char *cmnd, int i);
-// int		my_open(t_param *p, char *fname, int mode);
-
-// ////////////////// pipex block end ///////////////
 
 #endif
 
