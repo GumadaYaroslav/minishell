@@ -31,7 +31,7 @@
 # define GREEN		"\033[32m"
 # define BLUE		"\033[36m"
 
-# define DEBUG		1
+# define DEBUG		0
 
 typedef struct s_cmnd
 {

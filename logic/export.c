@@ -64,27 +64,6 @@ void	sort_the_env(t_msh *msh, int len_env)
 	}
 }
 
-char **sortStrings(char **arr, int n)
-{
-
-    char *temp;
-  
-    // Sorting strings using bubble sort
-    for (int j=0; j<n-1; j++)
-    {
-        for (int i=j+1; i<n; i++)
-        {
-            if (strcmp(arr[j], arr[i]) > 0)
-            {
-                temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-	return (arr);
-}
-
 static int ft_write_error_export(char *exp)
 {
 	write(2, "export: '", 10);
@@ -141,8 +120,6 @@ void	my_insert_or_update_elem_from_envp(t_msh *msh, char *argv)
 	flag = OK;
 	s = ft_strdub_chr(argv, '=', &flag);
 	elem = ft_lstfind(msh->lst_env, s);
-	// test_print_lst(msh->lst_env);
-	// printf("--------------------------------------------\n");
 	if (elem != NULL && flag == KO)
 		return ;
 	else if (elem  != NULL && flag == OK)
@@ -154,14 +131,8 @@ void	my_insert_or_update_elem_from_envp(t_msh *msh, char *argv)
 	}
 	else
 		ft_lstadd_back(&msh->lst_env, ft_lstnew(argv));
-	// test_print_lst(msh->lst_env);
 	ft_split_free(msh->env);
-	// ft_lst_get_array(msh->lst_env);
 	msh->env = ft_lst_get_array(msh->lst_env);
-	// test_print_lst(msh->lst_env);
-	// test_print_arr(msh->env);
-	// printf("--------------------------------------------\n");
-	// print_export(msh->envexp);
 	free(s);
 }
 
@@ -172,7 +143,6 @@ int	ft_export(char **argv, t_msh *msh)
 	i = 1;
 	if (ft_split_len(argv) == 1)
 	{
-		// sort_the_env(msh, ft_split_len(msh->env));
 		print_export(msh->env);
 		return (0);
 	}
@@ -180,14 +150,8 @@ int	ft_export(char **argv, t_msh *msh)
 	{
 		if (!check_export(argv[i]))
 			my_insert_or_update_elem_from_envp(msh, argv[i]);
-			// insert_or_update_elem_from_envp(msh, argv[i]);
-		// write(1, "2\n", 2);
 		i++;
 	}
-	// test_print_lst(msh->lst_env);
-	// msh->env = sortStrings(msh->env, ft_split_len(msh->env));
-	// test_print_lst(msh->lst_env);
-	// msh->lst_env = ft_split_to_list(msh->env);
 	sort_the_env(msh, ft_split_len(msh->env));
 	print_export(msh->env);
 	return (0);
