@@ -63,6 +63,7 @@ static int	exit_no_num_param(char *argv)
 
 int ft_exit(char **argv, t_msh *msh)
 {
+	(void)msh;
 	if (argv[1] == NULL)
 		exit(0);
 	if(is_not_num(argv[1]))

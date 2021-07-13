@@ -63,12 +63,15 @@ typedef	struct s_msh
 // parcing / minishell
 // int		main(int argc, char **argv, char **envp);
 
-
-int ft_echo(t_msh *msh, char **argv, char **env);
-int ft_exit(int argc, char **argv, char **env, t_msh *msh);
-int	ft_env(char **argv, char **env, t_msh *msh);
-int	ft_pwd(void);
-
+int 	ft_echo(t_msh *msh, char **argv, char **env);
+int 	ft_exit(char **argv, t_msh *msh);
+int		ft_env(char **argv, char **env, t_msh *msh);
+int		ft_unset(char **argv, t_msh *msh);
+int		ft_pwd(void);
+void	print_export(char **env);
+int		ft_export(char **argv, t_msh *msh);
+int 	ft_strcmp(const char *s1, const char *s2);
+char	**my_lst_get_array(t_list *lst);
 
 // parsing / inicialise
 
