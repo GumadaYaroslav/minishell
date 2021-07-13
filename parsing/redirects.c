@@ -1,5 +1,13 @@
 #include "minishell.h"
 
+/*
+**	@brief	runs funcstions for redirects list
+**	
+**	@param	msh		main structure
+**	@param	cmnd	command
+**	@param	is_fork	true if it's runned in fork
+**	@return	int		0 if no error
+*/
 int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 {
 	t_list	*redirect;
@@ -23,6 +31,10 @@ int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 	return (msh->status);
 }
 
+/*
+**	@brief	corutine for <<. 
+**			Reads lines from stdin to stop word
+*/
 void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	int	fd[2];
@@ -38,7 +50,7 @@ void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 	pid = fork();
 	if (pid)
 	{
-		wait(0);
+		waitpid(pid, 0, 0);
 		cmnd->in = fd[0];
 		close(fd[1]);
 	}
@@ -49,6 +61,7 @@ void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 		double_left_arrow_read(msh, cmnd, stop_word);
 	}
 }
+
 
 void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {

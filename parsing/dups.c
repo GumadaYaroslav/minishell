@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+/*
+**	@brief	save tandart input/output
+**	
+**	@param	msh		
+*/
 void	save_stnd_io(t_msh *msh)
 {
 	msh->old_in = dup(STDIN);
@@ -8,6 +13,11 @@ void	save_stnd_io(t_msh *msh)
 		ft_raise_error(msh, 0, 0);
 }
 
+/*
+**	@brief	restore standart input/output	
+**	
+**	@param	msh	main structure
+*/
 void	restore_stnd_io(t_msh *msh)
 {
 	close(STDIN);
@@ -20,6 +30,13 @@ void	restore_stnd_io(t_msh *msh)
 	close(msh->old_out);
 }
 
+/*
+**	@brief	replace standart inputs/outputs 
+**			to opens fd for command (pipe or files)
+**	
+**	@param	msh		main structure
+**	@param	cmnd	command	
+*/
 void	dups_input_output(t_msh *msh, t_cmnd *cmnd)
 {
 	if (cmnd->in)
