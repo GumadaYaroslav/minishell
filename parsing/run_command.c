@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+/*
+**		@brief		searches command full path and runs it	
+*/
 void	run_command(t_msh *msh, t_cmnd *cmnd)
 {
 	char	**paths;
@@ -15,9 +18,12 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 		if (errno != 2)
 			ft_critical_error(0, name);
 	}
-	ft_critical_error(ft_strjoin("msh: ", ft_strjoin("Command not found: ", name)), 0);
+	ft_critical_error(ft_strjoin("msh: Command not found: ", name), 0);
 }
 
+/*
+**		@brief		switcher for builtins run		
+*/
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)
 {
 	if (!ft_strncmp(name, "echo", ft_strlen(name)))
@@ -37,7 +43,6 @@ void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)
 	else
 		ft_putendl_fd("Impossible!", 2);
 }
-
 
 /*
 **	@brief	Checks the name program is the builtin

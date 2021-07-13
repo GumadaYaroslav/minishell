@@ -10,7 +10,7 @@ t_list	*ft_lstnew(char *val)
 {
 	t_list	*elem;
 
-	elem = (t_list *)malloc(sizeof(*elem));
+	elem = ft_malloc_x(sizeof(*elem));
 	if (elem)
 	{
 		elem->val = val;

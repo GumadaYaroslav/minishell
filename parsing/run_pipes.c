@@ -1,5 +1,8 @@
 #include "minishell.h"
 
+/*
+**		@brief		runs command one by one
+*/
 void	run_commands_via_pipes(t_msh *msh)
 {
 	t_cmnd	*curr;
@@ -31,6 +34,9 @@ void	run_commands_via_pipes(t_msh *msh)
 	wait_all_pipes(msh);
 }
 
+/*
+**		@brief		runs the command, no last in the pipes chain 	
+*/
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 {
 	cmnd->pid = fork();
@@ -57,7 +63,9 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	}
 }
 
-
+/*
+**		@brief		runs the last (or only) command in the pipes chain 
+*/
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
@@ -82,6 +90,9 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 	
 }
 
+/*
+**		@brief		waiting for all forks to end their work
+*/
 void	wait_all_pipes(t_msh *msh)
 {
 	t_cmnd	*cmnd;

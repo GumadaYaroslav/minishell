@@ -2,11 +2,6 @@
 
 /*
 **	@brief	runs funcstions for redirects list
-**	
-**	@param	msh		main structure
-**	@param	cmnd	command
-**	@param	is_fork	true if it's runned in fork
-**	@return	int		0 if no error
 */
 int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 {
@@ -32,14 +27,15 @@ int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 }
 
 /*
-**	@brief	corutine for <<. 
-**			Reads lines from stdin to stop word
+**	@brief	corutine for <<. reads from stdin to pipe.
 */
 void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	int	fd[2];
 	int	pid;
 
+	if (cmnd->in)
+		close(cmnd->in);
 	if (pipe(fd) < 0)
 	{
 		if (cmnd->is_fork)
@@ -62,7 +58,9 @@ void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 	}
 }
 
-
+/*
+**		@brief	Reads lines from stdin to stop word	
+*/
 void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	char	*line;
@@ -80,6 +78,10 @@ void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 	exit(0);
 }
 
+/*
+**		@brief		Corutine for >, >> or <.
+**					Open files for reading or writing.		
+*/
 void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode)
 {
 	if (mode == L_ARR)
@@ -94,7 +96,7 @@ void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode)
 			close(cmnd->out);
 		if (mode == R_ARR)
 			cmnd->out = open(fname, O_RDWR | O_CREAT | O_TRUNC, 00774);
-		else
+		else if (mode == R_D_ARR)
 			cmnd->out = open(fname, O_WRONLY | O_APPEND | O_CREAT, 00774);
 	}
 	if (cmnd->in < 0 || cmnd->out < 0)
