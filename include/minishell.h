@@ -73,6 +73,7 @@ int	ft_pwd(void);
 // parsing / inicialise
 
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
+void	update_shlvl(t_msh *msh);
 void	cleaning(t_msh *msh, char *str);
 void	ft_lstclear_cmnds(t_cmnd **cmnd);
 

@@ -69,7 +69,7 @@ char **ft_lst_get_array(t_list *lst)
 	char	**arr;
 
 	size_array = ft_lstsize(lst) + 1;
-	arr = malloc(sizeof(*arr) * size_array);
+	arr = ft_malloc_x(sizeof(*arr) * size_array);
 	if (!arr)
 		return (NULL);
 	arr[--size_array] = NULL;
@@ -124,7 +124,7 @@ char *ft_lstdup_str(t_list *lst)
 void	ft_lst_add_end(t_list **lst, t_list *new)
 {
 	if (!new || !new->val)
-		ft_critical_error("ALLLOHA ERROR", "NULL");
+		ft_critical_error("Now it's impossible error", NULL);
 	if (*lst)
 		ft_lstlast(*lst)->next = new;
 	else
@@ -133,7 +133,6 @@ void	ft_lst_add_end(t_list **lst, t_list *new)
 
 /*
 **	@brief	adds new element to end on command list
-**			checks for allocation errors
 **	@param	lst		pointer to cmnd list
 **	@param	new		pointer to new element
 */

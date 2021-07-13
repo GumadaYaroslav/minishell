@@ -34,7 +34,7 @@ char	*ft_chrdup(const char ch)
 {
 	char	*new_str;
 
-	new_str = (char *)malloc(sizeof(*new_str) * 2);
+	new_str = ft_malloc_x(sizeof(*new_str) * 2);
 	if (!new_str)
 		return (new_str);
 	new_str[0] = ch;
