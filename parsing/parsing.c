@@ -11,6 +11,8 @@ int	parsing(t_msh *msh, char *s)
 		return (1);
 	parsing_by_words(msh, s);
 	test_print_command(msh->lst_cmnd); // todo del
+	if (!msh->status && msh->cmnd && msh->cmnd->lst_arg)
+		update_underscore(msh, msh->cmnd->lst_arg->val);
 	return (msh->status);
 }
 
@@ -104,7 +106,10 @@ void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars)
 		if (s[*i] == '$')
 		{
 			key = get_key(0, s, i);
-			ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
+			if (!ft_strncmp(key, "?", 2))
+				ft_lstadd_back(chars, ft_lstnew(ft_itoa(msh->old_status)));
+			else
+				ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
 			free(key);
 		}
 		else if (ft_ch_in_str(s[*i], "'\""))

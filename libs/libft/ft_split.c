@@ -38,7 +38,7 @@ char	**ft_split(char const *s, char c)
 	size_t	row;
 
 	row = 0;
-	out = (char **)malloc(sizeof(char *) * (ft_count((char *)s, c) + 1));
+	out = (char **)ft_malloc_x(sizeof(char *) * (ft_count((char *)s, c) + 1));
 	if (!out)
 		return (NULL);
 	while (*s)

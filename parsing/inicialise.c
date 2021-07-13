@@ -46,7 +46,8 @@ void	update_shlvl(t_msh *msh)
 void	cleaning(t_msh *msh, char *str)
 {
 	free(str);
-	ft_lstclear_cmnds(&msh->lst_cmnd);
+	if (msh->lst_cmnd)
+		ft_lstclear_cmnds(&msh->lst_cmnd);
 	msh->old_status = msh->status;
 	msh->status = 0;
 }
