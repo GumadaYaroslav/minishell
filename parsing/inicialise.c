@@ -15,7 +15,7 @@ void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp)
 	update_shlvl(msh);
 	msh->builtin = ft_split(BUILTINS, ':');
 	msh->cmnd = NULL;
-	msh->status = 0;
+	g_status = 0;
 }
 
 /*
@@ -48,8 +48,8 @@ void	cleaning(t_msh *msh, char *str)
 	free(str);
 	if (msh->lst_cmnd)
 		ft_lstclear_cmnds(&msh->lst_cmnd);
-	msh->old_status = msh->status;
-	msh->status = 0;
+	msh->old_status = g_status;
+	g_status = 0;
 }
 
 /*

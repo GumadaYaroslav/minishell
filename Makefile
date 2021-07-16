@@ -50,7 +50,7 @@ OBJS_C		=	$(patsubst %.c,%.o,$(SRCS_C))
 INCLUDE		=	-I./include -I./libs/libft/
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -MMD
+CFLAGS		=	-Wall -Wextra -Werror -MMD
 RM			=	rm -f
 
 LIB = ./libs/libft/libft.a

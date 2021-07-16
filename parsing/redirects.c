@@ -9,21 +9,21 @@ int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 	
 	cmnd->is_fork = is_fork;
 	redirect = cmnd->redirects;
-	while (redirect && !msh->status)
+	while (redirect && !g_status)
 	{
 		if (!ft_strncmp(redirect->val, "<<", 2))
 			double_left_arrow(msh, cmnd, redirect->val + 2);
 		else if (!ft_strncmp(redirect->val, "<", 1))
-			redirect_open_file(msh, cmnd, redirect->val + 1, L_ARR);
+			redirect_open_file(cmnd, redirect->val + 1, L_ARR);
 		else if (!ft_strncmp(redirect->val, ">>", 2))
-			redirect_open_file(msh, cmnd, redirect->val + 2, R_D_ARR);
+			redirect_open_file(cmnd, redirect->val + 2, R_D_ARR);
 		else if (!ft_strncmp(redirect->val, ">", 1))
-			redirect_open_file(msh, cmnd, redirect->val + 1, R_ARR);
+			redirect_open_file(cmnd, redirect->val + 1, R_ARR);
 		redirect = redirect->next;
 	}
-	if (!msh->status)
-		dups_input_output(msh, cmnd);
-	return (msh->status);
+	if (!g_status)
+		dups_input_output(cmnd);
+	return (g_status);
 }
 
 /*
@@ -41,7 +41,7 @@ void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 		if (cmnd->is_fork)
 			ft_critical_error(NULL, NULL);
 		else
-			ft_raise_error(msh, NULL, NULL);
+			ft_raise_error(NULL, NULL);
 	}
 	pid = fork();
 	if (pid)
@@ -82,7 +82,7 @@ void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 **		@brief		Corutine for >, >> or <.
 **					Open files for reading or writing.		
 */
-void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode)
+void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode)
 {
 	if (mode == L_ARR)
 	{
@@ -104,6 +104,6 @@ void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode)
 		if (cmnd->is_fork)
 			ft_critical_error(NULL, fname);
 		else
-			ft_raise_error(msh, NULL, fname);
+			ft_raise_error(NULL, fname);
 	}
 }

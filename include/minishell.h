@@ -10,7 +10,8 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-
+# include <sys/types.h>
+# include <sys/wait.h>
 # include "libft.h"
 
 # define MSH_AVE	"\033[32mmsh$ \033[0m"
@@ -34,6 +35,8 @@
 
 # define DEBUG		0
 
+extern int g_status;
+
 typedef struct s_cmnd
 {
 	struct s_cmnd	*next;
@@ -56,10 +59,8 @@ typedef	struct s_msh
 	t_cmnd	*lst_cmnd;
 	int		old_in;
 	int		old_out;
-	int		status;
 	int		old_status;
 }	t_msh;
-
 
 // parcing / minishell
 // int		main(int argc, char **argv, char **envp);
@@ -76,6 +77,7 @@ char	**my_lst_get_array(t_list *lst);
 int		print_errno(void);
 int		chdir_error(char *dir);
 int		set_new_oldpwd(char *pwd_old, t_msh *msh);
+int		ft_cd(char **argv, t_msh *msh);
 
 // signals
 
@@ -91,7 +93,7 @@ void	ft_lstclear_cmnds(t_cmnd **cmnd);
 // parsing / parsing
 
 int		parsing(t_msh *msh, char *s);
-void	parsing_check_pipes(t_msh *msh, char *s);
+void	parsing_check_pipes(char *s);
 void	parsing_by_words(t_msh *msh, char *s);
 void	parsing_word(t_msh *msh, char *s, size_t *i);
 void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars);
@@ -107,7 +109,7 @@ char	*get_key(char quote, char *s, size_t *i);
 
 void	save_stnd_io(t_msh *msh);
 void	restore_stnd_io(t_msh *msh);
-void	dups_input_output(t_msh *msh, t_cmnd *cmnd);
+void	dups_input_output(t_cmnd *cmnd);
 
 
 // parsing / envp
@@ -139,7 +141,7 @@ void	wait_all_pipes(t_msh *msh);
 int		get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
 void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word);
 void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word);
-void	redirect_open_file(t_msh *msh, t_cmnd *cmnd, char *fname, int mode);
+void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode);
 
 
 // parsing / path_generator
@@ -159,7 +161,7 @@ void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 
 //parsing / raiser_error
 void	ft_critical_error(char *msg, char *errno_msg);
-void	ft_raise_error(t_msh *msh, char *msg, char *errno_msg);
+void	ft_raise_error(char *msg, char *errno_msg);
 
 
 // parcing / tests_func

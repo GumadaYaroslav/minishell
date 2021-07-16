@@ -18,14 +18,14 @@ void	ft_critical_error(char *msg, char *errno_msg)
 /*
 **	@brief	raises error message and change error code
 */
-void	ft_raise_error(t_msh *msh, char *msg, char *errno_msg)
+void	ft_raise_error(char *msg, char *errno_msg)
 {
 	if (msg)
 		ft_putendl_fd(msg, 2);
 	else
 		perror(errno_msg);
 	if (errno)
-		msh->status = errno;
+		g_status = errno;
 	else
-		msh->status = 1;
+		g_status = 1;
 }

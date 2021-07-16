@@ -6,20 +6,20 @@
 */
 int	parsing(t_msh *msh, char *s)
 {
-	parsing_check_pipes(msh, s);
-	if (msh->status)
+	parsing_check_pipes(s);
+	if (g_status)
 		return (1);
 	parsing_by_words(msh, s);
 	test_print_command(msh->lst_cmnd); // todo del
-	if (!msh->status && msh->cmnd && msh->cmnd->lst_arg)
+	if (!g_status && msh->cmnd && msh->cmnd->lst_arg)
 		update_underscore(msh, msh->cmnd->lst_arg->val);
-	return (msh->status);
+	return (g_status);
 }
 
 /*
 **		@brief		Simple check if pipes are closed	
 */
-void	parsing_check_pipes(t_msh *msh, char *s)
+void	parsing_check_pipes(char *s)
 {
 	bool	keyword;
 	bool	pipes;
@@ -33,7 +33,7 @@ void	parsing_check_pipes(t_msh *msh, char *s)
 			pipes = true;
 			if (!keyword)
 			{
-				ft_raise_error(msh, ERR_PIPE, 0);
+				ft_raise_error(ERR_PIPE, 0);
 				return ;
 			}
 			keyword = false;
@@ -43,7 +43,7 @@ void	parsing_check_pipes(t_msh *msh, char *s)
 		s++;
 	}
 	if (pipes && !keyword)
-		ft_raise_error(msh, ERR_NEWL, 0);
+		ft_raise_error(ERR_NEWL, 0);
 }
 
 /*
@@ -55,7 +55,7 @@ void	parsing_by_words(t_msh *msh, char *s)
 
 	msh->cmnd = new_command();
 	i = 0;
-	while(s[i] && !msh->status)
+	while(s[i] && !g_status)
 	{
 		if (s[i] == '|')
 		{

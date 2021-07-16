@@ -16,7 +16,7 @@ void	run_commands_via_pipes(t_msh *msh)
 			if (curr->lst_arg)
 				printos("run one", curr->lst_arg->val);
 			if (pipe(curr->pipe_fd) < 0)
-				return (ft_raise_error(msh, NULL, NULL));
+				return (ft_raise_error(NULL, NULL));
 			curr->out = curr->pipe_fd[1];
 			curr->next->in = curr->pipe_fd[0];
 			run_one_cmnd(msh, curr);
@@ -48,7 +48,7 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 			{
 				printos("Builtin", cmnd->arg[0]);
 				run_builtin(msh, cmnd, cmnd->arg[0]);
-				exit(msh->status);
+				exit(g_status);
 			}
 			else
 				run_command(msh, cmnd);
@@ -69,8 +69,9 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
+	ft_signal();
 	get_redirects(msh, cmnd, false);
-	if (!msh->status)
+	if (!g_status)
 	{
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
@@ -82,8 +83,8 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			cmnd->pid = fork();
 			if (!cmnd->pid)
 				run_command(msh, cmnd);
-			waitpid(cmnd->pid, &msh->status, 0);
-			msh->status = WEXITSTATUS(msh->status);
+			waitpid(cmnd->pid, &g_status, 0);
+			g_status = WEXITSTATUS(g_status);
 		}
 	}
 	restore_stnd_io(msh); // todo: checks used fds
@@ -102,7 +103,7 @@ void	wait_all_pipes(t_msh *msh)
 	printos(0, "wait pids");
 	while(cmnd && cmnd->next)
 	{
-		waitpid(cmnd->pid, &msh->status, 0);
+		waitpid(cmnd->pid, &g_status, 0);
 		cmnd = cmnd->next;
 	}
 }

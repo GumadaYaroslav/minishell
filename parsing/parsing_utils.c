@@ -65,7 +65,7 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 			|| (ft_strlen(keyword) == 2 && keyword[0] == keyword[1]))
 		{
 			msg = ft_strjoin("msh: Unexpected error near ", keyword);
-			ft_raise_error(msh, msg, 0);
+			ft_raise_error(msg, 0);
 			free(msg);
 		}
 		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));
