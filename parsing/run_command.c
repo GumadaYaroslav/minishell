@@ -18,7 +18,8 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 		if (errno != 2)
 			ft_critical_error(0, name);
 	}
-	ft_critical_error(ft_strjoin("msh: Command not found: ", name), 0);
+	ft_raise_error(msh, ft_strjoin("msh: Command not found: ", name), 0);
+	exit(127);
 }
 
 /*

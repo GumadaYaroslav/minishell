@@ -116,9 +116,12 @@ void	remove_elem_from_envp(t_msh *msh, const char *key);
 void	insert_or_update_elem_from_envp(t_msh *msh, const char *keyval);
 
 // parsing / envp_util
-size_t		ft_keylen(const char *keyval);
-char		*get_val_from_keyval(const char *keyval);
-char		*ft_chrdup(const char ch);
+size_t	ft_keylen(const char *keyval);
+char	*get_val_from_keyval(const char *keyval);
+char	*ft_chrdup(const char ch);
+void	update_underscore(t_msh *msh, char *word);
+
+
 
 // parsing / run_command
 void	run_command(t_msh *msh, t_cmnd *cmnd);

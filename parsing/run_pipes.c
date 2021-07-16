@@ -83,6 +83,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			if (!cmnd->pid)
 				run_command(msh, cmnd);
 			waitpid(cmnd->pid, &msh->status, 0);
+			msh->status = WEXITSTATUS(msh->status);
 		}
 	}
 	restore_stnd_io(msh); // todo: checks used fds

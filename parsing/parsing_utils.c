@@ -23,6 +23,7 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 {
 	t_list	*chars;
 	char	quote;
+	char	*key;
 	char	*quote_str;
 
 	chars = NULL;
@@ -30,7 +31,14 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 	while (s[*i] && s[*i] != quote)
 	{
 		if (s[*i] == '$' && quote == '\"')
-			ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(quote, s, i))));
+		{
+			key = get_key(quote, s, i);
+			if (!ft_strncmp(key, "?", 2))
+				ft_lstadd_back(&chars, ft_lstnew(ft_itoa(msh->old_status)));
+			else
+				ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, key)));
+			free(key);
+		}
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
@@ -82,3 +90,14 @@ char	*get_key(char quote, char *s, size_t *i)
 	ft_lstclear(&key_chars);
 	return (key);
 }
+
+// void	insert_from_dollar(t_msh *msh, char *s, size_t *i, char quote)
+// {
+// 	char	*key;
+
+// 	key = get_key(0, s, i);
+// 	ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
+// 	free(key);
+// ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(quote, s, i))));
+
+// }

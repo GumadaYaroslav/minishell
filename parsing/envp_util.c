@@ -41,3 +41,12 @@ char	*ft_chrdup(const char ch)
 	new_str[1] = 0;
 	return (new_str);
 }
+
+void	update_underscore(t_msh *msh, char *word)
+{
+	char *keyval;
+
+	keyval = ft_strjoin("_=", word);
+	insert_or_update_elem_from_envp(msh, keyval);
+	free(keyval);
+}
