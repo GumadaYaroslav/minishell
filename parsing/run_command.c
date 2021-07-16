@@ -29,7 +29,7 @@ void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)
 	if (!ft_strncmp(name, "echo", ft_strlen(name)))
 		ft_echo(msh, cmnd->arg, msh->env); // add your funcs
 	else if (!ft_strncmp(name, "cd", ft_strlen(name)))
-		;
+		ft_cd(cmnd->arg, msh);
 	else if (!ft_strncmp(name, "pwd", ft_strlen(name)))
 		ft_pwd();
 	else if (!ft_strncmp(name, "export", ft_strlen(name)))

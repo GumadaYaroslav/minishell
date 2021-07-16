@@ -28,7 +28,12 @@ SRCS_COMMANDS =		exit.c \
 					pwd.c \
 					unset.c \
 					export.c \
-					export_print.c
+					export_print.c \
+					cd.c \
+					print_errno.c \
+					cd_utils.c \
+					sig_chaild.c \
+					signal.c
 					
 
 PARSING_DIR	=	parsing/

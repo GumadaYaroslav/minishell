@@ -153,6 +153,5 @@ int	ft_export(char **argv, t_msh *msh)
 		i++;
 	}
 	sort_the_env(msh, ft_split_len(msh->env));
-	print_export(msh->env);
 	return (0);
 }

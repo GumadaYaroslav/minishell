@@ -9,6 +9,7 @@
 # include <sys/errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 
 # include "libft.h"
 
@@ -72,7 +73,14 @@ void	print_export(char **env);
 int		ft_export(char **argv, t_msh *msh);
 int 	ft_strcmp(const char *s1, const char *s2);
 char	**my_lst_get_array(t_list *lst);
+int		print_errno(void);
+int		chdir_error(char *dir);
+int		set_new_oldpwd(char *pwd_old, t_msh *msh);
 
+// signals
+
+void	ft_signal_child_process(void);
+void	ft_signal(void);
 // parsing / inicialise
 
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
