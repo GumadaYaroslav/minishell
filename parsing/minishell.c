@@ -9,14 +9,16 @@ int	main(int argc, char **argv, char **envp)
 	t_msh	msh;
 	char *str;
 	inicialise_struct(&msh, argc, argv, envp);
-	// ft_signal();
 	g_status = 0;
-		ft_signal_child_process();
 	while (true)
 	{
+		ft_signal_child_process();
 		str = readline(MSH_AVE);
-		// if (!str)
-		// 	exit (0); // for CTRL+D
+		if (!str)
+		{
+			write(1, "exit\n", 5);
+			exit (0);
+		}
 		if (str)
 		{
 			if (ft_strlen(str))
