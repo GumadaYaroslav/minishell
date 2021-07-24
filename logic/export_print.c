@@ -5,7 +5,7 @@ static void	ft_put_str_until_chr(char *str, char c)
 	int	i;
 
 	i = 0;
-	while(str[i] && str[i] != c)
+	while (str[i] && str[i] != c)
 	{
 		write(1, &str[i], 1);
 		i++;
@@ -14,7 +14,7 @@ static void	ft_put_str_until_chr(char *str, char c)
 
 static void	ft_put_str_after_chr(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] && str[i] != c)
@@ -24,7 +24,6 @@ static void	ft_put_str_after_chr(char *str, char c)
 		i++;
 		ft_putstr_fd(&str[i], 1);
 	}
-
 }
 
 void	print_export(char **env)
@@ -32,7 +31,7 @@ void	print_export(char **env)
 	int	i;
 
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		ft_putstr_fd("declare -x ", 1);
 		ft_put_str_until_chr(env[i], '=');
@@ -43,7 +42,7 @@ void	print_export(char **env)
 			ft_put_str_after_chr(env[i], '=');
 			write(1, "\"", 1);
 		}
-			write(1, "\n", 1);
+		write(1, "\n", 1);
 		i++;
 	}
 }

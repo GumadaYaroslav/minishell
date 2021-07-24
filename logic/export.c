@@ -122,7 +122,7 @@ void	my_insert_or_update_elem_from_envp(t_msh *msh, char *argv)
 	elem = ft_lstfind(msh->lst_env, s);
 	if (elem != NULL && flag == KO)
 		return ;
-	else if (elem  != NULL && flag == OK)
+	else if (elem != NULL && flag == OK)
 	{
 		free(elem->val);
 		elem->val = ft_strdup(argv);

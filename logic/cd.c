@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int set_new_pwd(t_msh *msh)
+int	set_new_pwd(t_msh *msh)
 {
 	char	*argv[3];
 	char	*pwd;
@@ -12,16 +12,16 @@ int set_new_pwd(t_msh *msh)
 	argv[1] = ft_strjoin("PWD=", pwd);
 	argv[2] = NULL;
 	free(pwd);
-	return(ft_export(argv, msh));
+	return (ft_export(argv, msh));
 }
 
 int	change_dir(char *dir, t_msh *msh)
 {
-	char *oldpwd;
+	char	*oldpwd;
 
 	oldpwd = getcwd(NULL, 1024);
 	if (!oldpwd)
-		return (print_errno());	
+		return (print_errno());
 	if (chdir(dir) == -1)
 		return (chdir_error(dir));
 	if (set_new_oldpwd(oldpwd, msh) != 0)
@@ -57,7 +57,7 @@ int	change_work_dir(char **argv, t_msh *msh)
 	{
 		argb[0] = "cd";
 		argb[1] = NULL;
-		return(ft_cd(argb, msh));
+		return (ft_cd(argb, msh));
 	}
 	else
 		return (change_dir(argv[1], msh));
@@ -86,5 +86,5 @@ int	ft_cd(char **argv, t_msh *msh)
 		return (r_vel);
 	}
 	if (ft_split_len(argv) == 2)
-		return(change_work_dir(argv, msh));
+		return (change_work_dir(argv, msh));
 }

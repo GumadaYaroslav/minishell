@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int ft_echo(t_msh *msh, char **argv, char **env)
+int	ft_echo(t_msh *msh, char **argv, char **env)
 {
 	int	i;
 	int	flag;

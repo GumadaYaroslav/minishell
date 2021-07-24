@@ -1,17 +1,17 @@
 #include "minishell.h"
 
-static u_int8_t atoi_overflow(const char *str)
+static u_int8_t	atoi_overflow(const char *str)
 {
-	int         i;
-	int         minus;
-	u_int64_t   num;
+	int			i;
+	int			minus;
+	u_int64_t	num;
 
 	i = 0;
 	minus = 1;
 	num = 0;
 	if (str[i] == '+' || str[i] == '-')
 	{
-		if(str[i] == '-')
+		if (str[i] == '-')
 			minus = -1;
 		i++;
 	}
@@ -22,7 +22,7 @@ static u_int8_t atoi_overflow(const char *str)
 
 static int	is_not_num(char *argv)
 {
-	int i;
+	int	i;
 	int	sign;
 
 	sign = 0;
@@ -33,7 +33,7 @@ static int	is_not_num(char *argv)
 		i++;
 	}
 	if (ft_strlen(argv) > 21 + sign)
-		return(1);
+		return (1);
 	while (argv[i])
 	{
 		if (ft_isdigit(argv[i]) == 0)
@@ -58,18 +58,18 @@ static int	exit_no_num_param(char *argv)
 	ft_putstr_fd(": numeric argument required", 2);
 	ft_putstr_fd("\n", 2);
 	exit(255);
-	return (255);	
+	return (255);
 }
 
-int ft_exit(char **argv, t_msh *msh)
+int	ft_exit(char **argv, t_msh *msh)
 {
 	(void)msh;
 	if (argv[1] == NULL)
 		exit(0);
-	if(is_not_num(argv[1]))
-		return(exit_no_num_param(argv[1]));
-	if(ft_split_len(argv) > 2)
-		return(to_many_args());
+	if (is_not_num(argv[1]))
+		return (exit_no_num_param(argv[1]));
+	if (ft_split_len(argv) > 2)
+		return (to_many_args());
 	else if (ft_split_len(argv) == 2)
 		exit(atoi_overflow(argv[1]));
 	return (0);

@@ -2,7 +2,7 @@
 
 int	ft_env(char **argv, char **env, t_msh *msh)
 {
-	t_list *inv;
+	t_list	*inv;
 
 	inv = msh->lst_env;
 	(void)argv;
