@@ -15,15 +15,6 @@ t_list	*ft_split_to_list(char **env)
 	return (env_list);
 }
 
-void	ft_swap_str(void **p1, void **p2)
-{
-	char *tmp;
-
-	tmp = *p1;
-	*p1 = *p2;
-	*p2 = tmp;
-}
-
 int	my_str_cmp(void *s1, void *s2)
 {
 	char	*one;
@@ -43,7 +34,7 @@ int	my_str_cmp(void *s1, void *s2)
 void	sort_the_env(t_msh *msh, int len_env)
 {
 	int		i;
-	int 	j;
+	int		j;
 	char	*tmp;
 
 	i = 0;
@@ -64,7 +55,7 @@ void	sort_the_env(t_msh *msh, int len_env)
 	}
 }
 
-static int ft_write_error_export(char *exp)
+static int	ft_write_error_export(char *exp)
 {
 	write(2, "export: '", 10);
 	write(2, exp, ft_strlen(exp));
@@ -72,7 +63,7 @@ static int ft_write_error_export(char *exp)
 	return (1);
 }
 
-int check_export(char *exp)
+int	check_export(char *exp)
 {
 	int	i;
 

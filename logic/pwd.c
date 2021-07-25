@@ -14,6 +14,7 @@ int	ft_pwd(void)
 	}
 	else
 	{
+		print_errno();
 		free(pwd);
 		return (KO);
 	}
