@@ -1,13 +1,15 @@
 #include "minishell.h"
 
 int		g_status;
+
 /*
 **		@brief		Hello world!
 */
 int	main(int argc, char **argv, char **envp)
 {
 	t_msh	msh;
-	char *str;
+	char	*str;
+
 	inicialise_struct(&msh, argc, argv, envp);
 	g_status = 0;
 	while (true)

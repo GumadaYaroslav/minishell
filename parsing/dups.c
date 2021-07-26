@@ -58,6 +58,5 @@ void	dups_input_output(t_cmnd *cmnd)
 			return (ft_raise_error(0, 0));
 		}
 		close(cmnd->out);
-	} 
+	}
 }
-

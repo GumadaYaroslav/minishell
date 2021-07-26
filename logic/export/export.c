@@ -1,68 +1,5 @@
 #include "minishell.h"
 
-t_list	*ft_split_to_list(char **env)
-{
-	t_list *env_list;
-	int		i;
-
-	i = 1;
-	env_list = ft_lstnew(env[0]);
-	while (env[i])
-	{
-		ft_lstadd_back(&env_list, ft_lstnew(env[i]));
-		i++;
-	}
-	return (env_list);
-}
-
-int	my_str_cmp(void *s1, void *s2)
-{
-	char	*one;
-	char	*two;
-	int		i;
-
-	one = (char *)s1;
-	two = (char *)s2;
-	i = 0;
-	while (one[i] == two[i] && two[i] && one[i])
-		i++;
-	if (one[i] == two[i])
-		return (0);
-	return (one[i] - two[i]);
-}
-
-void	sort_the_env(t_msh *msh, int len_env)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	while (i < len_env)
-	{
-		j = 0;
-		while (j < len_env - 1)
-		{
-			if (my_str_cmp(msh->env[j], msh->env[j + 1]) > 0)
-			{
-				tmp = msh->env[j];
-				msh->env[j] = msh->env[j + 1];
-				msh->env[j + 1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-static int	ft_write_error_export(char *exp)
-{
-	write(2, "export: '", 10);
-	write(2, exp, ft_strlen(exp));
-	write(2, "': not a valid identifier\n", 26);
-	return (1);
-}
-
 int	check_export(char *exp)
 {
 	int	i;
@@ -87,7 +24,6 @@ char	*ft_strdub_chr(char *str, char c, int *flag)
 	i = 0;
 	while (str[i] && str[i] != c)
 		i++;
-	ft_putnbr_fd(i, 1);
 	if (str[i] != '=')
 		*flag = 0;
 	new_str = ft_calloc(i + 1, sizeof(char));

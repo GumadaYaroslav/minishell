@@ -5,7 +5,7 @@
 */
 char	**get_splited_path(t_msh *msh)
 {
-	char 	*val;
+	char	*val;
 	char	**paths;
 
 	val = get_value_from_envp(msh, "PATH");

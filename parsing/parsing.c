@@ -55,7 +55,7 @@ void	parsing_by_words(t_msh *msh, char *s)
 
 	msh->cmnd = new_command();
 	i = 0;
-	while(s[i] && !g_status)
+	while (s[i] && !g_status)
 	{
 		if (s[i] == '|')
 		{
@@ -100,7 +100,7 @@ void	parsing_word(t_msh *msh, char *s, size_t *i)
 void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars)
 {
 	char	*key;
-	
+
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
 	{
 		if (s[*i] == '$')

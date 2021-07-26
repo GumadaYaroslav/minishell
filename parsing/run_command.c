@@ -28,7 +28,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name)
 {
 	if (!ft_strncmp(name, "echo", ft_strlen(name)))
-		g_status = ft_echo(msh, cmnd->arg, msh->env); // add your funcs
+		g_status = ft_echo(msh, cmnd->arg, msh->env);
 	else if (!ft_strncmp(name, "cd", ft_strlen(name)))
 		g_status = ft_cd(cmnd->arg, msh);
 	else if (!ft_strncmp(name, "pwd", ft_strlen(name)))

@@ -12,9 +12,8 @@ t_cmnd	*new_command(void)
 		ft_critical_error(NULL, NULL);
 	new_cmnd->next = NULL;
 	new_cmnd->arg = NULL;
-	return new_cmnd;
+	return (new_cmnd);
 }
-
 
 /*
 **		@brief		Get string wrapped by quotes	
@@ -36,7 +35,8 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 			if (!ft_strncmp(key, "?", 2))
 				ft_lstadd_back(&chars, ft_lstnew(ft_itoa(msh->old_status)));
 			else
-				ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, key)));
+				ft_lstadd_back(&chars,
+					ft_lstnew(get_value_from_envp(msh, key)));
 			free(key);
 		}
 		else

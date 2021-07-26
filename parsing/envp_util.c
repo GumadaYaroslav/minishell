@@ -5,7 +5,7 @@ size_t	ft_keylen(const char *keyval)
 	size_t	i;
 
 	i = 0;
-	while(keyval[i] && keyval[i] != '=')
+	while (keyval[i] && keyval[i] != '=')
 		i++;
 	return (i);
 }
@@ -22,7 +22,6 @@ char	*get_val_from_keyval(const char *keyval)
 	else
 		return (ft_strdup(""));
 }
-
 
 /*
 **	@brief	allocates memory and copy the char to new string
@@ -44,7 +43,7 @@ char	*ft_chrdup(const char ch)
 
 void	update_underscore(t_msh *msh, char *word)
 {
-	char *keyval;
+	char	*keyval;
 
 	keyval = ft_strjoin("_=", word);
 	insert_or_update_elem_from_envp(msh, keyval);

@@ -63,7 +63,7 @@ t_list	*ft_lstpop_find(t_list **lst, const char *key)
  * @param 	pointer to lst 
  * @return 	char** new array
  */
-char **ft_lst_get_array(t_list *lst)
+char	**ft_lst_get_array(t_list *lst)
 {
 	int		size_array;
 	char	**arr;
@@ -87,7 +87,7 @@ char **ft_lst_get_array(t_list *lst)
  * @param 	pointer to lst 
  * @return 	char*	new string
  */
-char *ft_lstdup_str(t_list *lst)
+char	*ft_lstdup_str(t_list *lst)
 {
 	size_t	i;
 	size_t	size_string;

@@ -6,7 +6,7 @@
 int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 {
 	t_list	*redirect;
-	
+
 	cmnd->is_fork = is_fork;
 	redirect = cmnd->redirects;
 	while (redirect && !g_status)
@@ -29,7 +29,7 @@ int	get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork)
 /*
 **	@brief	corutine for <<. reads from stdin to pipe.
 */
-void double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
+void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 {
 	int	fd[2];
 	int	pid;

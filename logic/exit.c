@@ -32,7 +32,7 @@ static int	is_not_num(char *argv)
 		sign = 1;
 		i++;
 	}
-	if (ft_strlen(argv) > 21 + sign)
+	if ((int)ft_strlen(argv) > 21 + sign)
 		return (1);
 	while (argv[i])
 	{

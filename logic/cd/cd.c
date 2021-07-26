@@ -1,34 +1,31 @@
 #include "minishell.h"
 
-int	set_new_pwd(t_msh *msh)
+int	help_change_dir(char *oldpwd, char *dir, t_msh *msh)
 {
-	char	*argv[3];
-	char	*pwd;
-
-	pwd = getcwd(NULL, 1024);
-	if (pwd == NULL)
-		return (print_errno());
-	argv[0] = "export";
-	argv[1] = ft_strjoin("PWD=", pwd);
-	argv[2] = NULL;
-	free(pwd);
-	return (ft_export(argv, msh));
-}
-
-int	change_dir(char *dir, t_msh *msh)
-{
-	char	*oldpwd;
-
-	oldpwd = getcwd(NULL, 1024);
 	if (!oldpwd)
 		return (print_errno());
 	if (chdir(dir) == -1)
 		return (chdir_error(dir));
 	if (set_new_oldpwd(oldpwd, msh) != 0)
-		return (errno);
+		return (print_errno());
 	if (set_new_pwd(msh) != 0)
-		return (errno);
+		return (print_errno());
 	return (0);
+}
+
+int	change_dir(char *dir, t_msh *msh)
+{
+	char	*oldpwd;
+	char	*tmp;
+	int		ret_v;
+
+	tmp = ft_calloc(1024, 1);
+	if (!tmp)
+		print_errno();
+	oldpwd = getcwd(tmp, 1024);
+	ret_v = help_change_dir(oldpwd, dir, msh);
+	free(tmp);
+	return (ret_v);
 }
 
 int	cd_to_oldpwd(t_msh *msh)
@@ -87,4 +84,5 @@ int	ft_cd(char **argv, t_msh *msh)
 	}
 	if (ft_split_len(argv) == 2)
 		return (change_work_dir(argv, msh));
+	return (0);
 }
