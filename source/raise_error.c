@@ -29,3 +29,10 @@ void	ft_raise_error(char *msg, char *errno_msg)
 	else
 		g_status = 1;
 }
+
+int	print_errno(void)
+{
+	ft_putstr_fd(strerror(errno), 2);
+	write(2, "\n", 2);
+	return (errno);
+}

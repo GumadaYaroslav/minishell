@@ -72,7 +72,6 @@ int		ft_env(char **argv, char **env, t_msh *msh);
 int		ft_unset(char **argv, t_msh *msh);
 int		ft_pwd(void);
 int		ft_strcmp(const char *s1, const char *s2);
-char	**my_lst_get_array(t_list *lst);
 int		print_errno(void);
 int		chdir_error(char *dir);
 int		set_new_oldpwd(char *pwd_old, t_msh *msh);

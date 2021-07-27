@@ -13,8 +13,6 @@ void	run_commands_via_pipes(t_msh *msh)
 		curr->arg = ft_lst_get_array(curr->lst_arg);
 		if (curr->next)
 		{
-			if (curr->lst_arg)
-				printos("run one", curr->lst_arg->val);
 			if (pipe(curr->pipe_fd) < 0)
 				return (ft_raise_error(NULL, NULL));
 			curr->out = curr->pipe_fd[1];
@@ -22,13 +20,7 @@ void	run_commands_via_pipes(t_msh *msh)
 			run_one_cmnd(msh, curr);
 		}
 		else
-		{
-			if (curr->lst_arg)
-				printos("run last", curr->lst_arg->val);
-			else
-				printos("run last", "but it's empty");
 			run_one_cmnd_last(msh, curr);
-		}
 		curr = curr->next;
 	}
 	wait_all_pipes(msh);
@@ -46,7 +38,6 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 		{
 			if (is_builtin(msh, cmnd->arg[0]))
 			{
-				printos("Builtin", cmnd->arg[0]);
 				run_builtin(msh, cmnd, cmnd->arg[0]);
 				exit(g_status);
 			}
@@ -57,9 +48,9 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	else
 	{
 		if (cmnd->in)
-			close(cmnd->in); // это предыдущий выход пайпа, он работает в форфке и можем  гасить
-		if (cmnd->out) // для не ласта
-			close(cmnd->out);	// это текущий ввод в пайп. аналогично гасим
+			close(cmnd->in);
+		if (cmnd->out)
+			close(cmnd->out);
 	}
 }
 
@@ -74,10 +65,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 	if (!g_status)
 	{
 		if (is_builtin(msh, cmnd->arg[0]))
-		{
-			printos("Builtin", cmnd->arg[0]);
 			run_builtin(msh, cmnd, cmnd->arg[0]);
-		}
 		else
 		{
 			cmnd->pid = fork();
@@ -87,9 +75,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			g_status = WEXITSTATUS(g_status);
 		}
 	}
-	restore_stnd_io(msh); // todo: checks used fds
-	printod("status last pid", cmnd->pid);
-	
+	restore_stnd_io(msh);
 }
 
 /*
@@ -100,8 +86,7 @@ void	wait_all_pipes(t_msh *msh)
 	t_cmnd	*cmnd;
 
 	cmnd = msh->lst_cmnd;
-	printos(0, "wait pids");
-	while(cmnd && cmnd->next)
+	while (cmnd && cmnd->next)
 	{
 		waitpid(cmnd->pid, &g_status, 0);
 		cmnd = cmnd->next;

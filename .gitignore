@@ -14,9 +14,7 @@ a.out
 *_old.c
 
 
-!libs/readline/**/*
-
 minishell
 out*
 tests/
-readline_do_del/
+

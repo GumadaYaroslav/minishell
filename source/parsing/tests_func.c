@@ -1,24 +1,29 @@
 #include "minishell.h"
 
-void test_print_arr(char **arr)
+void	test_print_arr(char **arr)
 {
+	if (!DEBUG)
+		return ;
 	for (size_t i = 0; arr[i]; i++)
 		printf("%zu: %s\n", i, arr[i]);
 }
 
 void	test_print_lst(t_list *lst)
 {
+	if (!DEBUG)
+		return ;
 	for (int i = 0; lst; i++, lst=lst->next)
 		printf("|%s| ", lst->val);
 	printf("\n");
 }
 
-void test_print_command(t_cmnd *cmnd)
+void	test_print_command(t_cmnd *cmnd)
 {
+	size_t i;
+	
 	if (!DEBUG)
 		return ;
-	
-	size_t i = 0;
+	i = 0;
 	ft_putstr_fd(BLUE, 1);
 	while (cmnd)
 	{

@@ -10,7 +10,6 @@ int	parsing(t_msh *msh, char *s)
 	if (g_status)
 		return (1);
 	parsing_by_words(msh, s);
-	test_print_command(msh->lst_cmnd); // todo del
 	if (!g_status && msh->cmnd && msh->cmnd->lst_arg)
 		update_underscore(msh, msh->cmnd->lst_arg->val);
 	return (g_status);

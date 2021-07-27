@@ -90,14 +90,3 @@ char	*get_key(char quote, char *s, size_t *i)
 	ft_lstclear(&key_chars);
 	return (key);
 }
-
-// void	insert_from_dollar(t_msh *msh, char *s, size_t *i, char quote)
-// {
-// 	char	*key;
-
-// 	key = get_key(0, s, i);
-// 	ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
-// 	free(key);
-// ft_lstadd_back(&chars, ft_lstnew(get_value_from_envp(msh, get_key(quote, s, i))));
-
-// }

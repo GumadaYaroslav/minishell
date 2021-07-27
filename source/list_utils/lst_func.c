@@ -115,23 +115,6 @@ char	*ft_lstdup_str(t_list *lst)
 }
 
 /*
-**	@brief	adds new element to the end of the list.
-**			double checks for allocation errors
-**	
-**	@param	lst		pointer to list
-**	@param	new		pointer to new element
-*/
-void	ft_lst_add_end(t_list **lst, t_list *new)
-{
-	if (!new || !new->val)
-		ft_critical_error("Now it's impossible error", NULL);
-	if (*lst)
-		ft_lstlast(*lst)->next = new;
-	else
-		*lst = new;
-}
-
-/*
 **	@brief	adds new element to end on command list
 **	@param	lst		pointer to cmnd list
 **	@param	new		pointer to new element
