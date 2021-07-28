@@ -33,7 +33,7 @@
 # define GREEN		"\033[32m"
 # define BLUE		"\033[36m"
 
-# define DEBUG		0
+# define DEBUG		1
 
 extern int	g_status;
 
@@ -62,8 +62,6 @@ typedef struct s_msh
 	int		old_status;
 }	t_msh;
 
-// parcing / minishell
-// int		main(int argc, char **argv, char **envp);
 
 // logic/
 int		ft_echo(t_msh *msh, char **argv, char **env);
