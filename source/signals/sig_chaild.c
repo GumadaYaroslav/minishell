@@ -4,7 +4,8 @@ static	void	ft_signal_cltr_c(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	ft_putstr_fd(MSH_AVE, 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 	g_status = 130;
 }
