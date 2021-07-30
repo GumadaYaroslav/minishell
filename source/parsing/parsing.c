@@ -18,35 +18,33 @@ int	parsing(t_msh *msh, char *s)
 /*
 **		@brief		Simple check if pipes are closed	
 */
-void	parsing_check_pipes(char *s)
+void	parsing_check_pipes(char *str)
 {
 	bool	keyword;
 	bool	pipes;
 
 	pipes = false;
-	keyword = false;
-	while (*s)
+	while (*str)
 	{
-		if (*s == '|')
+		if (*str == '|')
 		{
 			pipes = true;
 			if (!keyword)
-			{
-				ft_raise_error(ERR_PIPE, 0);
-				return ;
-			}
+				return ft_raise_error(ERR_PIPE, 0);
 			keyword = false;
 		}
-		else if (!ft_ch_in_str(*s, " \t"))
+		else if (!ft_ch_in_str(*str, " \t"))
 			keyword = true;
-		s++;
+		if (ft_ch_in_str(*str, "'\""))
+			str += skip_brackets(str);
+		str++;
 	}
 	if (pipes && !keyword)
 		ft_raise_error(ERR_NEWL, 0);
 }
 
 /*
-**		@brief	parsing command to list commands by pipeы	
+**		@brief	parsing command to list commands by pipes	
 */
 void	parsing_by_words(t_msh *msh, char *s)
 {

@@ -90,3 +90,16 @@ char	*get_key(char quote, char *s, size_t *i)
 	ft_lstclear(&key_chars);
 	return (key);
 }
+
+/*
+**		@brief		skips any characters in brackets (' or ")
+*/
+int	skip_brackets(char *str)
+{
+	int	i;
+
+	i = 1;
+	while (str[i] != str[0] && str[i] && str[i + 1])
+		i++;
+	return (i);
+}
