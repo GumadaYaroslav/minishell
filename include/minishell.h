@@ -106,6 +106,7 @@ t_cmnd	*new_command(void);
 char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
 void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
 char	*get_key(char quote, char *s, size_t *i);
+int		skip_brackets(char *str);
 
 // parsing / dups
 

@@ -26,7 +26,7 @@ int	gen_next_path(char **argv, char **paths, char *name)
 
 	if (z > 1)
 		free(argv[0]);
-	if (z > ft_split_len(paths) || !paths[0])
+	if (z > ft_split_len(paths) || (!paths[0] && !ft_is_path(name)))
 	{
 		z = 0;
 		argv[0] = name;
