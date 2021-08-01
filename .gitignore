@@ -18,4 +18,7 @@ minishell
 out*
 tests/
 minishell-tester/
+<<<<<<< HEAD
 big
+=======
+>>>>>>> ca50a9ae80357b04486288ce8f52b7a0a4e88d76
