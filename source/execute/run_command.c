@@ -8,6 +8,8 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	char	**paths;
 	char	*name;
 
+	if (cmnd->next)
+		close(cmnd->next->in);
 	if (!cmnd->lst_arg)
 		exit (0);
 	paths = get_splited_path(msh);

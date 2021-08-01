@@ -34,6 +34,8 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	cmnd->pid = fork();
 	if (!cmnd->pid)
 	{
+		if (cmnd->next)
+			close(cmnd->next->in);
 		if (!get_redirects(msh, cmnd, true))
 		{
 			if (is_builtin(msh, cmnd->arg[0]))
@@ -45,13 +47,10 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 				run_command(msh, cmnd);
 		}
 	}
-	else
-	{
-		if (cmnd->in)
-			close(cmnd->in);
-		if (cmnd->out)
-			close(cmnd->out);
-	}
+	if (cmnd->in != STDIN)
+		close(cmnd->in);
+	if (cmnd->out != STDOUT)
+		close(cmnd->out);
 }
 
 /*
@@ -71,6 +70,7 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			cmnd->pid = fork();
 			if (!cmnd->pid)
 				run_command(msh, cmnd);
+			close(STDIN);
 			waitpid(cmnd->pid, &g_status, 0);
 			g_status = WEXITSTATUS(g_status);
 		}
@@ -88,7 +88,8 @@ void	wait_all_pipes(t_msh *msh)
 	cmnd = msh->lst_cmnd;
 	while (cmnd && cmnd->next)
 	{
-		waitpid(cmnd->pid, &g_status, 0);
+		if (cmnd->pid)
+			waitpid(cmnd->pid, &g_status, 0);
 		cmnd = cmnd->next;
 	}
 }

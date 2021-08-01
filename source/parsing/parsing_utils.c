@@ -12,6 +12,7 @@ t_cmnd	*new_command(void)
 		ft_critical_error(NULL, NULL);
 	new_cmnd->next = NULL;
 	new_cmnd->arg = NULL;
+	new_cmnd->out = 1;
 	return (new_cmnd);
 }
 

@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 /*
-**	@brief	save tandart input/output
+**	@brief	save standart input/output
 **	
 **	@param	msh		
 */
@@ -39,7 +39,7 @@ void	restore_stnd_io(t_msh *msh)
 */
 void	dups_input_output(t_cmnd *cmnd)
 {
-	if (cmnd->in)
+	if (cmnd->in != STDIN)
 	{
 		if (dup2(cmnd->in, STDIN) < 0)
 		{
@@ -49,7 +49,7 @@ void	dups_input_output(t_cmnd *cmnd)
 		}
 		close(cmnd->in);
 	}
-	if (cmnd->out)
+	if (cmnd->out != STDOUT)
 	{
 		if (dup2(cmnd->out, STDOUT) < 0)
 		{

@@ -86,13 +86,13 @@ void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode)
 {
 	if (mode == L_ARR)
 	{
-		if (cmnd->in)
+		if (cmnd->in != STDIN)
 			close(cmnd->in);
 		cmnd->in = open(fname, O_RDONLY);
 	}
 	else
 	{
-		if (cmnd->out)
+		if (cmnd->out != STDOUT)
 			close(cmnd->out);
 		if (mode == R_ARR)
 			cmnd->out = open(fname, O_RDWR | O_CREAT | O_TRUNC, 00774);

@@ -34,14 +34,15 @@ SRCS		= 	$(addprefix $(MAIN_DIR),$(SRCS_FILES))
 
 OBJS		=	$(patsubst %.c,%.o,$(SRCS))
 
-INCLUDE		=	-I./include -I./libs/libft/
+INCLUDE		=	-I./include -I./libs/libft/ -I ~/.brew/opt/readline/include
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -MMD
 RM			=	rm -f
 
-LIB = ./libs/libft/libft.a
-RDL = -lreadline
+LIB			= ./libs/libft/libft.a
+RDL			= -lreadline
+RDL_MAC		= -lreadline -L ~/.brew/opt/readline/lib
 
 all:		$(NAME)
 
@@ -50,7 +51,7 @@ all:		$(NAME)
 		
 $(NAME):	$(OBJS) $(OBJS_C)
 			$(MAKE) -C $(dir $(LIB))
-			$(CC) $(INCLUDE) -o $(NAME) $(OBJS) $(LIB)  $(RDL)
+			$(CC) $(INCLUDE) -o $(NAME) $(OBJS) $(LIB) $(RDL_MAC)
 
 clean:
 			$(RM) $(OBJS) $(OBJS:.o=.d)
