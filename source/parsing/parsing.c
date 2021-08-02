@@ -99,17 +99,7 @@ void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars)
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
 	{
 		if (s[*i] == '$')
-		{
 			ft_lstadd_back(chars, ft_lstnew(parsing_dollar(msh, s, i)));
-
-			// key = get_key(0, s, i);
-			
-			// if (!ft_strncmp(key, "?", 2))
-			// 	ft_lstadd_back(chars, ft_lstnew(ft_itoa(msh->old_status)));
-			// else
-			// 	ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
-			// free(key);
-		}
 		else if (ft_ch_in_str(s[*i], "'\""))
 			ft_lstadd_back(chars, ft_lstnew(get_quotes_string(msh, s, i)));
 		else

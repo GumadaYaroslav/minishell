@@ -13,10 +13,10 @@ int	main(int argc, char **argv, char **envp)
 	g_status = 0;
 	rl_outstream = stderr;
 	inicialise_struct(&msh, argc, argv, envp);
+	ft_signal_child_process();
 	while (true)
 	{
 		
-		ft_signal_child_process();
 		str = readline(MSH_AVE);
 		if (!str)
 		{

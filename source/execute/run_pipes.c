@@ -36,11 +36,13 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	{
 		if (cmnd->next)
 			close(cmnd->next->in);
+		ft_signal();
 		if (!get_redirects(msh, cmnd, true))
 		{
 			if (is_builtin(msh, cmnd->arg[0]))
 			{
 				run_builtin(msh, cmnd, cmnd->arg[0]);
+				printos("finish", cmnd->arg[0]);
 				exit(g_status);
 			}
 			else
@@ -59,7 +61,6 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
 	save_stnd_io(msh);
-	ft_signal();
 	get_redirects(msh, cmnd, false);
 	if (!g_status)
 	{
@@ -69,7 +70,10 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 		{
 			cmnd->pid = fork();
 			if (!cmnd->pid)
+			{
+				ft_signal();
 				run_command(msh, cmnd);
+			}
 			close(STDIN);
 			waitpid(cmnd->pid, &g_status, 0);
 			g_status = WEXITSTATUS(g_status);

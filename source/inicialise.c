@@ -16,6 +16,8 @@ void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp)
 	msh->builtin = ft_split(BUILTINS, ':');
 	msh->cmnd = NULL;
 	g_status = 0;
+	save_stnd_io(msh);
+	restore_stnd_io(msh);
 }
 
 /*
