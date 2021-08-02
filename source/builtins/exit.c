@@ -65,7 +65,7 @@ int	ft_exit(char **argv, t_msh *msh)
 {
 	(void)msh;
 	if (argv[1] == NULL)
-		exit(0);
+		exit(msh->old_status);
 	if (is_not_num(argv[1]))
 		return (exit_no_num_param(argv[1]));
 	if (ft_split_len(argv) > 2)

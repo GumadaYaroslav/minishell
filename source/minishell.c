@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 			// ft_putendl_fd("exit", 2);
 			str = ft_strdup("exit");
 		}
-		if (ft_strlen(str))
+		else if (ft_strlen(str))
 			add_history(str);
 		if (!parsing(&msh, str))
 			run_commands_via_pipes(&msh);
