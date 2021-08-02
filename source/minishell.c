@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(MSH_AVE);
 		if (!str)
 		{
-			ft_putendl_fd("exit", 2);
+			// ft_putendl_fd("exit", 2);
 			str = ft_strdup("exit");
 		}
 		if (ft_strlen(str))

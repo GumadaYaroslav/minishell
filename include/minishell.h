@@ -101,13 +101,14 @@ void	parsing_check_pipes(char *s);
 void	parsing_by_words(t_msh *msh, char *s);
 void	parsing_word(t_msh *msh, char *s, size_t *i);
 void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars);
+char	*parsing_dollar(t_msh *msh, char *s, size_t *i);
 
 // parsing / parsing_utils
 
 t_cmnd	*new_command(void);
 char	*get_quotes_string(t_msh *msh, char *s, size_t *i);
 void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect);
-char	*get_key(char quote, char *s, size_t *i);
+char	*get_key(bool digit, char *s, size_t *i);
 int		skip_brackets(char *str);
 
 // parsing / dups

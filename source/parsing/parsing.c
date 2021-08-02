@@ -96,22 +96,43 @@ void	parsing_word(t_msh *msh, char *s, size_t *i)
 */
 void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars)
 {
-	char	*key;
-
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
 	{
 		if (s[*i] == '$')
 		{
-			key = get_key(0, s, i);
-			if (!ft_strncmp(key, "?", 2))
-				ft_lstadd_back(chars, ft_lstnew(ft_itoa(msh->old_status)));
-			else
-				ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
-			free(key);
+			ft_lstadd_back(chars, ft_lstnew(parsing_dollar(msh, s, i)));
+
+			// key = get_key(0, s, i);
+			
+			// if (!ft_strncmp(key, "?", 2))
+			// 	ft_lstadd_back(chars, ft_lstnew(ft_itoa(msh->old_status)));
+			// else
+			// 	ft_lstadd_back(chars, ft_lstnew(get_value_from_envp(msh, key)));
+			// free(key);
 		}
 		else if (ft_ch_in_str(s[*i], "'\""))
 			ft_lstadd_back(chars, ft_lstnew(get_quotes_string(msh, s, i)));
 		else
 			ft_lstadd_back(chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
+}
+
+char	*parsing_dollar(t_msh *msh, char *s, size_t *i)
+{
+	char	*key;
+	char	*value;
+
+	(*i)++;
+	if (s[*i] == '?')
+	{
+		(*i)++;
+		return (ft_itoa(msh->old_status));
+	}
+	if (ft_ch_in_str(s[(*i)], " <>|$'\"\n="))
+		return (ft_strdup("$"));
+	key = get_key(ft_isdigit(s[*i]), s, i);
+	value = get_value_from_envp(msh, key);
+	free(key);
+	return (value);
+
 }

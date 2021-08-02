@@ -23,7 +23,6 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 {
 	t_list	*chars;
 	char	quote;
-	char	*key;
 	char	*quote_str;
 
 	chars = NULL;
@@ -31,15 +30,7 @@ char	*get_quotes_string(t_msh *msh, char *s, size_t *i)
 	while (s[*i] && s[*i] != quote)
 	{
 		if (s[*i] == '$' && quote == '\"')
-		{
-			key = get_key(quote, s, i);
-			if (!ft_strncmp(key, "?", 2))
-				ft_lstadd_back(&chars, ft_lstnew(ft_itoa(msh->old_status)));
-			else
-				ft_lstadd_back(&chars,
-					ft_lstnew(get_value_from_envp(msh, key)));
-			free(key);
-		}
+			ft_lstadd_back(&chars, ft_lstnew(parsing_dollar(msh, s, i)));
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
@@ -78,14 +69,14 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 /*
 **		@brief		Get the key from string after '$' character	
 */
-char	*get_key(char quote, char *s, size_t *i)
+char	*get_key(bool digit, char *s, size_t *i)
 {
 	t_list	*key_chars;
 	char	*key;
 
 	key_chars = NULL;
 	(*i)++;
-	while (s[*i] && !ft_ch_in_str(s[*i], " <>|$'\n=") && s[*i] != quote)
+	while (s[*i] && ft_isalnum(s[*i]) && !(ft_isalpha(s[*i]) && digit))    // !ft_ch_in_str(s[*i], " <>|$'\"\n=") && s[*i] != quote)
 		ft_lstadd_back(&key_chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	key = ft_lstdup_str(key_chars);
 	ft_lstclear(&key_chars);
