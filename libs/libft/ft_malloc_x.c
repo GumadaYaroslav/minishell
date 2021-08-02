@@ -15,5 +15,5 @@ void	*ft_malloc_x(size_t size)
 		exit(errno);
 	}
 	else
-		return ptr;
+		return (ptr);
 }

@@ -9,9 +9,9 @@
 **	@return	int	zero if strings are identical, 
 **				else difference between two elements (unsinged char)
 */
-int ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	if (!n)
 		return (0);
@@ -28,9 +28,9 @@ int ft_strncmp(const char *s1, const char *s2, size_t n)
 **	@return	int	zero if strings are identical, 
 **		else difference between two elements (unsinged char)
 */
-int ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	while (s1[i] == s2[i] && s1[i] && s2[i])

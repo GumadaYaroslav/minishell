@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/02 19:11:57 by alchrist          #+#    #+#             */
+/*   Updated: 2021/08/02 19:21:40 by alchrist         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -76,7 +88,7 @@ char	*get_key(bool digit, char *s, size_t *i)
 
 	key_chars = NULL;
 	(*i)++;
-	while (s[*i] && ft_isalnum(s[*i]) && !(ft_isalpha(s[*i]) && digit))    // !ft_ch_in_str(s[*i], " <>|$'\"\n=") && s[*i] != quote)
+	while (s[*i] && ft_isalnum(s[*i]) && !(ft_isalpha(s[*i]) && digit))
 		ft_lstadd_back(&key_chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	key = ft_lstdup_str(key_chars);
 	ft_lstclear(&key_chars);

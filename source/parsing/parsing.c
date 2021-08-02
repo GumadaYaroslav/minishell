@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/02 19:12:01 by alchrist          #+#    #+#             */
+/*   Updated: 2021/08/02 19:21:17 by alchrist         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -30,7 +42,7 @@ void	parsing_check_pipes(char *str)
 		{
 			pipes = true;
 			if (!keyword)
-				return ft_raise_error(ERR_PIPE, 0);
+				return (ft_raise_error(ERR_PIPE, 0));
 			keyword = false;
 		}
 		else if (!ft_ch_in_str(*str, " \t"))
@@ -87,26 +99,21 @@ void	parsing_word(t_msh *msh, char *s, size_t *i)
 		while (ft_ch_in_str(s[*i], " \t"))
 			(*i)++;
 	}
-	parsing_word_p2(msh, s, i, &chars);
+	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
+	{
+		if (s[*i] == '$')
+			ft_lstadd_back(&chars, ft_lstnew(parsing_dollar(msh, s, i)));
+		else if (ft_ch_in_str(s[*i], "'\""))
+			ft_lstadd_back(&chars, ft_lstnew(get_quotes_string(msh, s, i)));
+		else
+			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
+	}
 	add_keyword(msh, &chars, is_redirect);
 }
 
 /*
-**		@brief		Parsing a string keyword wrapped with spaces. part2.
+**		@brief		parsing and get value  from string, started by $				
 */
-void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars)
-{
-	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
-	{
-		if (s[*i] == '$')
-			ft_lstadd_back(chars, ft_lstnew(parsing_dollar(msh, s, i)));
-		else if (ft_ch_in_str(s[*i], "'\""))
-			ft_lstadd_back(chars, ft_lstnew(get_quotes_string(msh, s, i)));
-		else
-			ft_lstadd_back(chars, ft_lstnew(ft_chrdup(s[(*i)++])));
-	}
-}
-
 char	*parsing_dollar(t_msh *msh, char *s, size_t *i)
 {
 	char	*key;
@@ -124,5 +131,4 @@ char	*parsing_dollar(t_msh *msh, char *s, size_t *i)
 	value = get_value_from_envp(msh, key);
 	free(key);
 	return (value);
-
 }

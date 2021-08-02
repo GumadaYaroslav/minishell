@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
+/*   Updated: 2021/08/02 19:17:15 by alchrist         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -79,14 +91,17 @@ int		ft_cd(char **argv, t_msh *msh);
 int		set_new_pwd(t_msh *msh);
 
 // logic/export
+
 void	print_export(char **env);
 int		ft_export(char **argv, t_msh *msh);
 void	sort_the_env(t_msh *msh, int len_env);
 int		ft_write_error_export(char *exp);
+
 // logic/signals
 
 void	ft_signal_child_process(void);
 void	ft_signal(void);
+
 // parsing / inicialise
 
 void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp);
@@ -100,7 +115,6 @@ int		parsing(t_msh *msh, char *s);
 void	parsing_check_pipes(char *s);
 void	parsing_by_words(t_msh *msh, char *s);
 void	parsing_word(t_msh *msh, char *s, size_t *i);
-void	parsing_word_p2(t_msh *msh, char *s, size_t *i, t_list **chars);
 char	*parsing_dollar(t_msh *msh, char *s, size_t *i);
 
 // parsing / parsing_utils
@@ -155,7 +169,6 @@ t_list	*ft_lstfind(t_list *lst, const char *key);
 t_list	*ft_lstpop_find(t_list **lst, const char *key);
 char	**ft_lst_get_array(t_list *lst);
 char	*ft_lstdup_str(t_list *lst);
-void	ft_lst_add_end(t_list **lst, t_list *new);
 void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 
 //parsing / raiser_error
