@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:17:15 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/03 18:02:04 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int		is_builtin(t_msh *msh, char *name);
 void	run_commands_via_pipes(t_msh *msh);
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd);
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
-void	wait_all_pipes(t_msh *msh);
+void	wait_all_pipes(t_msh *msh, t_cmnd *last);
 
 // parsing / redirects
 int		get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);

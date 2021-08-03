@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:01 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:21:17 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:23:07 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,11 @@ void	parsing_check_pipes(char *str)
 		{
 			pipes = true;
 			if (!keyword)
-				return (ft_raise_error(ERR_PIPE, 0));
+			{
+				ft_raise_error(ERR_PIPE, 0);
+				g_status = 258;
+				break ;
+			}
 			keyword = false;
 		}
 		else if (!ft_ch_in_str(*str, " \t"))
@@ -52,7 +56,10 @@ void	parsing_check_pipes(char *str)
 		str++;
 	}
 	if (pipes && !keyword)
+	{
 		ft_raise_error(ERR_NEWL, 0);
+		g_status = 258;
+	}
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:57 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:21:40 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:25:35 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 		{
 			msg = ft_strjoin("msh: Unexpected error near ", keyword);
 			ft_raise_error(msg, 0);
+			g_status = 258;
 			free(msg);
 		}
 		ft_lstadd_back(&msh->cmnd->redirects, ft_lstnew(keyword));

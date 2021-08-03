@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:41 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:10:43 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/03 16:59:23 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	ft_pwd(void)
 		ft_putstr_fd(pwd, 1);
 		free(pwd);
 		write(1, "\n", 1);
-		return (OK);
+		return (KO);
 	}
 	else
 	{
 		print_errno();
 		free(pwd);
-		return (KO);
+		return (OK);
 	}
 }
