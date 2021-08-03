@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:32 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:12:33 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/03 11:18:27 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ void	inicialise_struct(t_msh *msh, int argc, char **argv, char **envp)
 */
 void	update_shlvl(t_msh *msh)
 {
-	int		shlvl;
+	char	*shlvl;
 	char	*temp_lvl;
 	char	*new_shlvl;
 
-	shlvl = ft_atoi(get_value_from_envp(msh, "SHLVL"));
-	temp_lvl = ft_itoa(++shlvl);
+	shlvl = get_value_from_envp(msh, "SHLVL");
+	temp_lvl = ft_itoa(ft_atoi(shlvl) + 1);
 	new_shlvl = ft_strjoin("SHLVL=", temp_lvl);
 	insert_or_update_elem_from_envp(msh, new_shlvl);
+	free(shlvl);
 	free(temp_lvl);
 	free(new_shlvl);
-	printos(0, new_shlvl);
 }
 
 /*
