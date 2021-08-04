@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:20 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:11:24 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:57:02 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	run_command(t_msh *msh, t_cmnd *cmnd)
 	{
 		execve(cmnd->arg[0], cmnd->arg, msh->env);
 		if (errno != 2)
-			ft_critical_error(0, name);
+			ft_critical_error(0, name, 0);
 	}
 	ft_raise_error(ft_strjoin("msh: Command not found: ", name), 0);
 	exit(127);

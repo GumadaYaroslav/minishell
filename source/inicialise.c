@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:32 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/03 11:18:27 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 21:59:46 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ void	update_shlvl(t_msh *msh)
 */
 void	cleaning(t_msh *msh, char *str)
 {
-	free(str);
+	
 	if (msh->lst_cmnd)
 		ft_lstclear_cmnds(&msh->lst_cmnd);
-	msh->old_status = g_status;
+	if (ft_strlen(str))
+		msh->old_status = g_status;
 	g_status = 0;
+	free(str);
 }
 
 /*

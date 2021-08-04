@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:10 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:11:18 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:00:08 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word)
 	if (pipe(fd) < 0)
 	{
 		if (cmnd->is_fork)
-			ft_critical_error(NULL, NULL);
+			ft_critical_error(0, 0, 0);
 		else
 			ft_raise_error(NULL, NULL);
 	}
@@ -113,8 +113,9 @@ void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode)
 	}
 	if (cmnd->in < 0 || cmnd->out < 0)
 	{
+		// printod("in/out", g_status);
 		if (cmnd->is_fork)
-			ft_critical_error(NULL, fname);
+			ft_critical_error(NULL, fname, 1);
 		else
 			ft_raise_error(NULL, fname);
 	}

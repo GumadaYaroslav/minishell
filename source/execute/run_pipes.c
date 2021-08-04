@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:27 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/03 20:36:14 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 23:03:12 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,24 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 		if (cmnd->next)
 			close(cmnd->next->in);
 		ft_signal();
-		if (!get_redirects(msh, cmnd, true))
+		get_redirects(msh, cmnd, true);
+		if (is_builtin(msh, cmnd->arg[0]))
 		{
-			if (is_builtin(msh, cmnd->arg[0]))
-			{
-				run_builtin(msh, cmnd, cmnd->arg[0]);
-				exit(g_status);
-			}
-			else
-				run_command(msh, cmnd);
+			run_builtin(msh, cmnd, cmnd->arg[0]);
+			exit(g_status);
 		}
+		else
+			run_command(msh, cmnd);
 	}
 	if (cmnd->in != STDIN)
 		close(cmnd->in);
 	if (cmnd->out != STDOUT)
 		close(cmnd->out);
 	if (cmnd->pid < 0)
+	{
 		ft_raise_error(0, "msh: fork:");
+		g_status = 128;
+	}
 }
 
 /*
@@ -91,7 +92,9 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 		if (!g_status)
 		{
 			waitpid(cmnd->pid, &g_status, 0);
+			// printod("waited before wexitstatus", g_status);
 			g_status = WEXITSTATUS(g_status);
+			// printod("waited after wexitstatus", g_status);
 		}
 	}
 }

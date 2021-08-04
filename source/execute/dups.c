@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:02 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:11:03 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:55:22 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	dups_input_output(t_cmnd *cmnd)
 		if (dup2(cmnd->in, STDIN) < 0)
 		{
 			if (cmnd->is_fork)
-				ft_critical_error(0, 0);
+				ft_critical_error(0, 0, 0);
 			return (ft_raise_error(0, 0));
 		}
 		close(cmnd->in);
@@ -66,7 +66,7 @@ void	dups_input_output(t_cmnd *cmnd)
 		if (dup2(cmnd->out, STDOUT) < 0)
 		{
 			if (cmnd->is_fork)
-				ft_critical_error(0, 0);
+				ft_critical_error(0, 0, 0);
 			return (ft_raise_error(0, 0));
 		}
 		close(cmnd->out);

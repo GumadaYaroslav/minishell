@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:39 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:12:39 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:55:00 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 /*
 **	@brief	raises error message and exit from program
 */
-void	ft_critical_error(char *msg, char *errno_msg)
+void	ft_critical_error(char *msg, char *errno_msg, int err)
 {
 	if (msg)
 		ft_putendl_fd(msg, 2);
 	else
 		perror(errno_msg);
-	if (errno)
+	if (err)
+		exit (err);
+	else if (errno)
 		exit (errno);
 	else
 		exit(1);

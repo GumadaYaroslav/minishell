@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:57 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/03 17:25:35 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:57:20 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmnd	*new_command(void)
 
 	new_cmnd = ft_calloc(1, sizeof(*new_cmnd));
 	if (!new_cmnd)
-		ft_critical_error(NULL, NULL);
+		ft_critical_error(0, 0, 0);
 	new_cmnd->next = NULL;
 	new_cmnd->arg = NULL;
 	new_cmnd->out = 1;

@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/03 18:02:04 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:55:51 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ char	*ft_lstdup_str(t_list *lst);
 void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 
 //parsing / raiser_error
-void	ft_critical_error(char *msg, char *errno_msg);
+void	ft_critical_error(char *msg, char *errno_msg, int err);
 void	ft_raise_error(char *msg, char *errno_msg);
 
 // parcing / tests_func

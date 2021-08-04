@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:07 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:11:07 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/04 22:56:11 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	gen_next_path(char **argv, char **paths, char *name)
 		temp = ft_strjoin(paths[z - 1], "/");
 		argv[0] = ft_strjoin(temp, name);
 		if (!temp || !argv[0])
-			ft_critical_error(NULL, NULL);
+			ft_critical_error(0, 0, 0);
 		free(temp);
 	}
 	z++;
