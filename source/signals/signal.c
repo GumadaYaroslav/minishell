@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:25 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 16:27:41 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 17:03:35 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static	void	ft_signal_pipes(int sig)
 {
 	if (sig == SIGINT)
 		ft_putendl_fd("", 2);
-	else
+	else if (sig == SIGQUIT)
 		ft_putendl_fd("Quit: 3", 2);
 	rl_replace_line("", 0);
 	rl_redisplay();
