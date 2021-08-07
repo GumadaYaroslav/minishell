@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:11 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:14:25 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 02:47:58 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,18 @@ int	main(int argc, char **argv, char **envp)
 		str = readline(MSH_AVE);
 		if (!str)
 		{
-			ft_putendl_fd("exit", 2);
+			ft_exit(argv, &msh);
+			// ft_putendl_fd("exit", 2);
 			str = ft_strdup("exit");
 		}
 		else if (ft_strlen(str))
 			add_history(str);
-		if (!parsing(&msh, str))
-			run_commands_via_pipes(&msh);
+		
+		logical_condition(&msh, str);
+
+
+		// if (!parsing(&msh, str))
+		// 	run_commands_via_pipes(&msh);
 		cleaning(&msh, str);
 	}
 }

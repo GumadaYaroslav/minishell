@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:39 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/04 22:55:00 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 00:53:59 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,18 @@ void	ft_raise_error(char *msg, char *errno_msg)
 		g_status = errno;
 	else
 		g_status = 1;
+}
+
+/*
+**	@brief	using only for bonus part with error condition syntax.
+**			Frees the incoming string after using.
+**			Always returns NULL;
+*/
+char	*ft_error_token(char *msg)
+{
+	ft_putendl_fd(msg, 2);
+	free(msg);
+	return (NULL);
 }
 
 int	print_errno(void)

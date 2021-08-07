@@ -26,6 +26,8 @@ SRCS_FILES	= 	inicialise.c \
 				list_utils/lst_func.c \
 				list_utils/envp.c \
 				list_utils/envp_util.c \
+				\
+				bonus/logical_operator.c \
 			
 
 MAIN_DIR	=	source/
@@ -52,6 +54,8 @@ all:		$(NAME)
 $(NAME):	$(OBJS) $(OBJS_C)
 			$(MAKE) -C $(dir $(LIB))
 			$(CC) $(INCLUDE) -o $(NAME) $(OBJS) $(LIB) $(RDL_MAC)
+
+bonus:		$(NAME)
 
 clean:
 			$(RM) $(OBJS) $(OBJS:.o=.d)

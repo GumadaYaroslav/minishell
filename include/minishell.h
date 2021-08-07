@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/04 22:55:51 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 12:53:26 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 
 # define ERR_PIPE	"msh: Syntax error near unexpected token '|'"
 # define ERR_NEWL	"msh: Syntax error near newline"
+# define ERR_TKN	"msh: syntax error near unexpected token: "
 
 # define STND		"\033[0m"
 # define GREEN		"\033[32m"
@@ -74,6 +75,8 @@ typedef struct s_msh
 	int		old_in;
 	int		old_out;
 	int		old_status;
+	int		cond_and;
+	int		cond_status;
 }	t_msh;
 
 
@@ -84,7 +87,6 @@ int		ft_env(char **argv, char **env, t_msh *msh);
 int		ft_unset(char **argv, t_msh *msh);
 int		ft_pwd(void);
 int		ft_strcmp(const char *s1, const char *s2);
-int		print_errno(void);
 int		chdir_error(char *dir);
 int		set_new_oldpwd(char *pwd_old, t_msh *msh);
 int		ft_cd(char **argv, t_msh *msh);
@@ -174,6 +176,8 @@ void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 //parsing / raiser_error
 void	ft_critical_error(char *msg, char *errno_msg, int err);
 void	ft_raise_error(char *msg, char *errno_msg);
+char	*ft_error_token(char *msg);
+int		print_errno(void);
 
 // parcing / tests_func
 void	test_print_arr(char **arr);
@@ -181,5 +185,20 @@ void	test_print_command(t_cmnd *cmnd);
 void	test_print_lst(t_list *lst);
 void	printos(char *msg, char *str);
 void	printod(char *msg, int x);
+
+// bonus/logical_operator
+
+void	logical_condition(t_msh *msh, char *str);
+
+// bonus/logical_brackets
+
+char	*check_brackets(char *s, bool open_bracket);
+char	*check_brackets_p2(char *s, bool open_bracket, int *cmnd_cond);
+
+// bonus/logical_utils
+
+char	*ft_pass_comma(char *s);
+size_t	ft_pass_comma_ind(char *s);
+
 
 #endif

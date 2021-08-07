@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:25 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/02 19:12:26 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/06 23:36:14 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_signal(void)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGCHLD, SIG_IGN);
-	signal(SIGTERM, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGCHLD, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 }

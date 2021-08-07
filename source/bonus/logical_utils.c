@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_chaild.c                                       :+:      :+:    :+:   */
+/*   logical_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/02 19:12:19 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/06 23:32:35 by alchrist         ###   ########.fr       */
+/*   Created: 2021/08/05 16:34:20 by alchrist          #+#    #+#             */
+/*   Updated: 2021/08/07 12:53:53 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	void	ft_signal_cltr_c(int sig)
+char	*ft_pass_comma(char *s)
 {
-	(void)sig;
-	write(2, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-	g_status = 130;
+	char	comma;
+	
+	comma = *s;
+	while (*s && *s != comma)
+		s++;
+	if (*s)
+		s++;
+	return (s);
 }
 
-void	ft_signal_child_process(void)
+size_t	ft_pass_comma_ind(char *s)
 {
-	signal(SIGINT, ft_signal_cltr_c);
-	signal(SIGQUIT, SIG_IGN);
+	size_t	i;
+
+	i = 1;
+	while (s[i] && s[i] != s[0])
+		i++;
+	if (s[i])
+		i++;
+	return (i);
 }
