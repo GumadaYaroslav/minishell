@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:57 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/04 22:57:20 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:51:32 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ char	*get_key(bool digit, char *s, size_t *i)
 	char	*key;
 
 	key_chars = NULL;
-	(*i)++;
 	while (s[*i] && ft_isalnum(s[*i]) && !(ft_isalpha(s[*i]) && digit))
 		ft_lstadd_back(&key_chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	key = ft_lstdup_str(key_chars);
