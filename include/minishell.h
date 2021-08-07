@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 12:53:26 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:17:07 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,7 @@ typedef struct s_msh
 	int		old_in;
 	int		old_out;
 	int		old_status;
-	int		cond_and;
-	int		cond_status;
+	int		cur_status;
 }	t_msh;
 
 
@@ -101,7 +100,10 @@ int		ft_write_error_export(char *exp);
 
 // logic/signals
 
-void	ft_signal_child_process(void);
+void	ft_signal_main(void);
+void	ft_signal_run_pipes(void);
+void	ft_signal_in_child(void);
+
 void	ft_signal(void);
 
 // parsing / inicialise
@@ -186,19 +188,7 @@ void	test_print_lst(t_list *lst);
 void	printos(char *msg, char *str);
 void	printod(char *msg, int x);
 
-// bonus/logical_operator
-
-void	logical_condition(t_msh *msh, char *str);
-
-// bonus/logical_brackets
-
-char	*check_brackets(char *s, bool open_bracket);
-char	*check_brackets_p2(char *s, bool open_bracket, int *cmnd_cond);
-
-// bonus/logical_utils
-
-char	*ft_pass_comma(char *s);
-size_t	ft_pass_comma_ind(char *s);
+// bonus/wildcard
 
 
 #endif

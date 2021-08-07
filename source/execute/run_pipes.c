@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:27 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/04 23:03:12 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:36:08 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	run_commands_via_pipes(t_msh *msh)
 {
 	t_cmnd	*curr;
 
+	ft_signal_run_pipes();
 	curr = msh->lst_cmnd;
 	while (curr && !g_status)
 	{
@@ -39,6 +40,7 @@ void	run_commands_via_pipes(t_msh *msh)
 		curr = curr->next;
 	}
 	wait_all_pipes(msh, curr);
+	ft_signal_main();
 }
 
 /*
@@ -49,10 +51,9 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 	cmnd->pid = fork();
 	if (!cmnd->pid)
 	{
-		
+		ft_signal_in_child();
 		if (cmnd->next)
 			close(cmnd->next->in);
-		ft_signal();
 		get_redirects(msh, cmnd, true);
 		if (is_builtin(msh, cmnd->arg[0]))
 		{
@@ -78,7 +79,6 @@ void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd)
 */
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 {
-	
 	if (is_builtin(msh, cmnd->arg[0]))
 	{
 		save_stnd_io(msh);
@@ -91,10 +91,10 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 		run_one_cmnd(msh, cmnd);
 		if (!g_status)
 		{
-			waitpid(cmnd->pid, &g_status, 0);
-			// printod("waited before wexitstatus", g_status);
-			g_status = WEXITSTATUS(g_status);
-			// printod("waited after wexitstatus", g_status);
+			waitpid(cmnd->pid, &msh->cur_status, 0);
+			g_status = WEXITSTATUS(msh->cur_status);
+			if (!g_status && WIFSIGNALED(msh->cur_status))
+				g_status = 128 + WTERMSIG(msh->cur_status);
 		}
 	}
 }

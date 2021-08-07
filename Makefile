@@ -21,13 +21,10 @@ SRCS_FILES	= 	inicialise.c \
 				builtins/export/export_utils.c \
 				builtins/cd/cd.c \
 				builtins/cd/cd_utils.c \
-				signals/sig_chaild.c \
 				signals/signal.c \
 				list_utils/lst_func.c \
 				list_utils/envp.c \
 				list_utils/envp_util.c \
-				\
-				bonus/logical_operator.c \
 			
 
 MAIN_DIR	=	source/

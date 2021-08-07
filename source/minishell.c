@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:11 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 02:47:58 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 16:24:01 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ int	main(int argc, char **argv, char **envp)
 	g_status = 0;
 	rl_outstream = stderr;
 	inicialise_struct(&msh, argc, argv, envp);
-	ft_signal_child_process();
+	ft_signal_main();
 	while (true)
 	{
 		str = readline(MSH_AVE);
+		if (g_status == 130)
+		{
+			msh.old_status = 1;
+			g_status = 0;
+		}
 		if (!str)
 		{
 			ft_exit(argv, &msh);
@@ -37,12 +42,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else if (ft_strlen(str))
 			add_history(str);
-		
-		logical_condition(&msh, str);
-
-
-		// if (!parsing(&msh, str))
-		// 	run_commands_via_pipes(&msh);
+		if (!parsing(&msh, str))
+			run_commands_via_pipes(&msh);
 		cleaning(&msh, str);
 	}
 }
