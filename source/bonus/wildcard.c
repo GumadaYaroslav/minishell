@@ -6,12 +6,15 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:34:20 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/08 13:42:56 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:19:11 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+**		@brief		gets filenames by wildcard mask for current directory	
+*/
 void	wildcard(t_msh *msh, char *wilds)
 {
 	char	*path;
@@ -24,16 +27,21 @@ void	wildcard(t_msh *msh, char *wilds)
 		return ;
 	}
 	dirp = opendir(path);
+	free (path);
 	if (!dirp)
 	{
 		ft_raise_error(0, 0);
 		return ;
 	}
 	get_and_check_files(msh, dirp, wilds);
+	free (wilds);
 	closedir(dirp);
-	free (path);
 }
 
+/*
+**		@brief		Gets and addes to list arguments filenames
+**					from current directory,	if their match to wildcard
+*/
 void	get_and_check_files(t_msh *msh, DIR *dirp, char *wilds)
 {
 	struct dirent	*f;
@@ -57,6 +65,10 @@ void	get_and_check_files(t_msh *msh, DIR *dirp, char *wilds)
 		ft_lstadd_front(&msh->cmnd->lst_arg, ft_lstnew(ft_strdup(wilds)));
 }
 
+/*
+**		@brief		recursive checks if the name matches the wildcard		
+**		@return		1 if equals, else 0;		
+*/
 int	name_eq_wildcard(char *name, char *wilds)
 {
 	while (*name && *wilds == '*')
@@ -78,18 +90,4 @@ int	name_eq_wildcard(char *name, char *wilds)
 	if (*wilds == '*' && name_eq_wildcard(name, wilds))
 		return (1);
 	return (0);
-}
-
-char	*get_substr(char *wilds)
-{
-	size_t	i;
-	char	*substr;
-
-	i = 0;
-	while (wilds[i] && wilds[i] != '*')
-		i++;
-	substr = ft_malloc_x(sizeof(*substr) * (i + 1));
-	substr[0] = 0;
-	ft_strlcpy(substr, wilds, i + 1);
-	return (substr);
 }

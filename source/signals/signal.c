@@ -6,12 +6,15 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:25 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 17:03:35 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:34:35 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/*
+**		@brief	restores default signal handlers in forks	
+*/
 void	ft_signal_in_child(void)
 {
 	// signal(SIGCHLD, SIG_DFL);
@@ -20,7 +23,28 @@ void	ft_signal_in_child(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
-static	void	ft_signal_cltr_c(int sig)
+/*
+**	@brief	signal handlers in main state	
+*/
+void	ft_signal_main(void)
+{
+	signal(SIGINT, ft_signal_cltr_c);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+/*
+**	@brief	signal handlers in 'run pipes' state	
+*/
+void	ft_signal_run_pipes(void)
+{
+	signal(SIGINT, ft_signal_pipes);
+	signal(SIGQUIT, ft_signal_pipes);
+}
+
+/*
+**	@brief	for ctrl+C in main state	
+*/
+void	ft_signal_cltr_c(int sig)
 {
 	(void)sig;
 	write(2, "\n", 1);
@@ -30,7 +54,10 @@ static	void	ft_signal_cltr_c(int sig)
 	g_status = 130;
 }
 
-static	void	ft_signal_pipes(int sig)
+/*
+**	@brief	for ctrl+C and ctrl + \ in 'run pipes' state	
+*/
+void	ft_signal_pipes(int sig)
 {
 	if (sig == SIGINT)
 		ft_putendl_fd("", 2);
@@ -38,16 +65,4 @@ static	void	ft_signal_pipes(int sig)
 		ft_putendl_fd("Quit: 3", 2);
 	rl_replace_line("", 0);
 	rl_redisplay();
-}
-
-void	ft_signal_main(void)
-{
-	signal(SIGINT, ft_signal_cltr_c);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	ft_signal_run_pipes(void)
-{
-	signal(SIGINT, ft_signal_pipes);
-	signal(SIGQUIT, ft_signal_pipes);
 }

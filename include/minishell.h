@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/08 13:30:26 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:36:02 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ typedef struct s_msh
 	int		cur_status;
 }	t_msh;
 
-
 // logic/
+
 int		ft_echo(t_msh *msh, char **argv, char **env);
 int		ft_exit(char **argv, t_msh *msh);
 int		ft_env(char **argv, char **env, t_msh *msh);
@@ -103,8 +103,12 @@ int		ft_write_error_export(char *exp);
 void	ft_signal_main(void);
 void	ft_signal_run_pipes(void);
 void	ft_signal_in_child(void);
+void	ft_signal_cltr_c(int sig);
+void	ft_signal_pipes(int sig);
 
-void	ft_signal(void);
+// parsing / minishell
+
+int		main(int argc, char **argv, char **envp);
 
 // parsing / inicialise
 
@@ -136,39 +140,46 @@ void	restore_stnd_io(t_msh *msh);
 void	dups_input_output(t_cmnd *cmnd);
 
 // parsing / envp
+
 char	*get_value_from_envp(t_msh *msh, const char *key);
 void	remove_elem_from_envp(t_msh *msh, const char *key);
 void	insert_or_update_elem_from_envp(t_msh *msh, const char *keyval);
 
 // parsing / envp_util
+
 size_t	ft_keylen(const char *keyval);
 char	*get_val_from_keyval(const char *keyval);
 char	*ft_chrdup(const char ch);
 void	update_underscore(t_msh *msh, char *word);
 
 // parsing / run_command
+
 void	run_command(t_msh *msh, t_cmnd *cmnd);
 void	run_builtin(t_msh *msh, t_cmnd *cmnd, char *name);
 int		is_builtin(t_msh *msh, char *name);
 
 // parsing / run_pipes
+
 void	run_commands_via_pipes(t_msh *msh);
 void	run_one_cmnd(t_msh *msh, t_cmnd *cmnd);
 void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd);
 void	wait_all_pipes(t_msh *msh, t_cmnd *last);
 
 // parsing / redirects
+
 int		get_redirects(t_msh *msh, t_cmnd *cmnd, bool is_fork);
 void	double_left_arrow(t_msh *msh, t_cmnd *cmnd, char *stop_word);
 void	double_left_arrow_read(t_msh *msh, t_cmnd *cmnd, char *stop_word);
 void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode);
 
 // parsing / path_generator
+
 char	**get_splited_path(t_msh *msh);
 int		gen_next_path(char **argv, char **paths, char *name);
 int		ft_is_path(char *s);
 
 // parsing / ft_lstfunc
+
 t_list	*ft_lstfind(t_list *lst, const char *key);
 t_list	*ft_lstpop_find(t_list **lst, const char *key);
 char	**ft_lst_get_array(t_list *lst);
@@ -176,12 +187,14 @@ char	*ft_lstdup_str(t_list *lst);
 void	ft_cmnd_add_end(t_cmnd **lst, t_cmnd *new);
 
 //parsing / raiser_error
+
 void	ft_critical_error(char *msg, char *errno_msg, int err);
 void	ft_raise_error(char *msg, char *errno_msg);
-char	*ft_error_token(char *msg);
+void	ft_raise_error_n(char *msg, int err_n);
 int		print_errno(void);
 
 // parcing / tests_func
+
 void	test_print_arr(char **arr);
 void	test_print_command(t_cmnd *cmnd);
 void	test_print_lst(t_list *lst);
@@ -189,11 +202,9 @@ void	printos(char *msg, char *str);
 void	printod(char *msg, int x);
 
 // bonus/wildcard
+
 void	wildcard(t_msh *msh, char *wilds);
 void	get_and_check_files(t_msh *msh, DIR *dirp, char *wilds);
-void	set_wildcard(t_msh *msh, t_list *lst_files, char *wilds);
 int		name_eq_wildcard(char *name, char *wilds);
-char	*get_substr(char *wilds);
-
 
 #endif

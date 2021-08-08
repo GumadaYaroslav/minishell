@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:39 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 00:53:59 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:31:56 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,12 @@ void	ft_raise_error(char *msg, char *errno_msg)
 }
 
 /*
-**	@brief	using only for bonus part with error condition syntax.
-**			Frees the incoming string after using.
-**			Always returns NULL;
+**	@brief	raises error message and change error status to new code
 */
-char	*ft_error_token(char *msg)
+void	ft_raise_error_n(char *msg, int err_n)
 {
 	ft_putendl_fd(msg, 2);
-	free(msg);
-	return (NULL);
+	g_status = err_n;
 }
 
 int	print_errno(void)

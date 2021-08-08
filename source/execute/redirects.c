@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:10 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/04 23:00:08 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 16:19:38 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	redirect_open_file(t_cmnd *cmnd, char *fname, int mode)
 	}
 	if (cmnd->in < 0 || cmnd->out < 0)
 	{
-		// printod("in/out", g_status);
 		if (cmnd->is_fork)
 			ft_critical_error(NULL, fname, 1);
 		else
