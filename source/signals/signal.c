@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:25 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/08 16:34:35 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 20:59:23 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 */
 void	ft_signal_in_child(void)
 {
-	// signal(SIGCHLD, SIG_DFL);
-	// signal(SIGTERM, SIG_DFL);
+	signal(SIGTERM, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
@@ -28,6 +27,7 @@ void	ft_signal_in_child(void)
 */
 void	ft_signal_main(void)
 {
+	signal(SIGTERM, SIG_IGN);
 	signal(SIGINT, ft_signal_cltr_c);
 	signal(SIGQUIT, SIG_IGN);
 }
