@@ -25,6 +25,7 @@ SRCS_FILES	= 	inicialise.c \
 				list_utils/lst_func.c \
 				list_utils/envp.c \
 				list_utils/envp_util.c \
+				bonus/wildcard.c
 			
 
 MAIN_DIR	=	source/

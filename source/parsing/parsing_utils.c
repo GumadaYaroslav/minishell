@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:57 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 16:51:32 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/07 22:00:58 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	add_keyword(t_msh *msh, t_list **chars, bool is_redirect)
 
 	keyword = ft_lstdup_str(*chars);
 	ft_lstclear(chars);
-	if (is_redirect)
+	if (ft_ch_in_str('*', keyword))
+		wildcard(msh, keyword);
+	else if (is_redirect)
 	{
 		if (ft_strlen(keyword) == 1
 			|| (ft_strlen(keyword) == 2 && keyword[0] == keyword[1]))

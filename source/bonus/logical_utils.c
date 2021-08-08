@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:34:20 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 12:53:53 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:41:12 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_pass_comma(char *s)
 {
 	char	comma;
-	
+
 	comma = *s;
 	while (*s && *s != comma)
 		s++;

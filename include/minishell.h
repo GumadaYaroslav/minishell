@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:10:16 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 16:17:07 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:30:26 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <sys/errno.h>
-
+# include <dirent.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
@@ -189,6 +189,11 @@ void	printos(char *msg, char *str);
 void	printod(char *msg, int x);
 
 // bonus/wildcard
+void	wildcard(t_msh *msh, char *wilds);
+void	get_and_check_files(t_msh *msh, DIR *dirp, char *wilds);
+void	set_wildcard(t_msh *msh, t_list *lst_files, char *wilds);
+int		name_eq_wildcard(char *name, char *wilds);
+char	*get_substr(char *wilds);
 
 
 #endif

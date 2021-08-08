@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 16:34:20 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 12:51:04 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/08 13:40:30 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*check_brackets(char *s, bool open_bracket)
 {
-	int		cmnd_cond;
+	int	cmnd_cond;
 
 	cmnd_cond = 0;
-    while (*s && *s != ')')
+	while (*s && *s != ')')
 	{
 		if (ft_ch_in_str(*s, "'\""))
 			s = ft_pass_comma(s);
@@ -34,7 +34,6 @@ char	*check_brackets(char *s, bool open_bracket)
 		return (ft_error_token(ft_strjoin(ERR_TKN, ")")));
 	return (s);
 }
-
 
 char	*check_brackets_p2(char *s, bool open_bracket, int *cmnd_cond)
 {
