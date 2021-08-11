@@ -14,12 +14,17 @@
 
 int	help_change_dir(char *oldpwd, char *dir, t_msh *msh)
 {
-	if (!oldpwd)
-		return (print_errno());
+	// if (!oldpwd)
+	// {
+	// 	printf("%s\n", dir);
+	// 	return (print_errno());
+	// }
+	// printf("%s\n", dir);
 	if (chdir(dir) == -1)
 		return (chdir_error(dir));
-	if (set_new_oldpwd(oldpwd, msh) != 0)
-		return (print_errno());
+	if (oldpwd)
+		if (set_new_oldpwd(oldpwd, msh) != 0)
+			return (print_errno());
 	if (set_new_pwd(msh) != 0)
 		return (print_errno());
 	return (0);

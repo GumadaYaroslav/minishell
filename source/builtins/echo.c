@@ -21,18 +21,19 @@ int	ft_echo(t_msh *msh, char **argv, char **env)
 	(void)msh;
 	i = 1;
 	flag = 1;
+	// printf("%s\n", argv[3]);
 	if (argv[1])
 	{
-		if (ft_strncmp(argv[1], "-n", ft_strlen(argv[1])) == 0)
-		{
-			i++;
+		if (ft_strcmp(argv[1], "-n") == 0)
 			flag = 0;
-		}
 		while (argv[i])
 		{
-			ft_putstr_fd(argv[i], 1);
-			if (argv[i + 1] && ft_strlen(argv[i]) != 0)
-				write(1, " ", 1);
+			if (ft_strcmp(argv[i], "-n") != 0)
+			{
+				ft_putstr_fd(argv[i], 1);
+				if (argv[i + 1] && ft_strlen(argv[i]) != 0 && ft_strlen(argv[i + 1]))
+					write(1, " ", 1);
+			}
 			i++;
 		}
 	}
