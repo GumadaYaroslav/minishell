@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:11:27 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/07 16:36:08 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:23:57 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,11 @@ void	run_one_cmnd_last(t_msh *msh, t_cmnd *cmnd)
 			waitpid(cmnd->pid, &msh->cur_status, 0);
 			g_status = WEXITSTATUS(msh->cur_status);
 			if (!g_status && WIFSIGNALED(msh->cur_status))
+			{
+				if (msh->cur_status == 2 || msh->cur_status == 3)
+					ft_putendl_fd("", 2);
 				g_status = 128 + WTERMSIG(msh->cur_status);
+			}
 		}
 	}
 }

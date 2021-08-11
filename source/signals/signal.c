@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:25 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/08 20:59:23 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:31:39 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,6 @@ void	ft_signal_cltr_c(int sig)
 */
 void	ft_signal_pipes(int sig)
 {
-	if (sig == SIGINT)
-		ft_putendl_fd("", 2);
-	else if (sig == SIGQUIT)
-		ft_putendl_fd("Quit: 3", 2);
-	rl_replace_line("", 0);
-	rl_redisplay();
+	signal(SIGINT, SIG_IGN);
+	(void)sig;
 }
