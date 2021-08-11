@@ -4,6 +4,7 @@ SRCS_FILES	= 	inicialise.c \
 				minishell.c \
 				raise_error.c \
 				parsing/parsing.c \
+				parsing/parsing_dollar.c \
 				parsing/parsing_utils.c \
 				parsing/tests_func.c \
 				execute/run_pipes.c \

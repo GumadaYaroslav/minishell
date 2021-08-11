@@ -6,7 +6,7 @@
 /*   By: alchrist <alchrist@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 19:12:01 by alchrist          #+#    #+#             */
-/*   Updated: 2021/08/08 16:34:11 by alchrist         ###   ########.fr       */
+/*   Updated: 2021/08/11 22:02:03 by alchrist         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,33 +105,11 @@ void	parsing_word(t_msh *msh, char *s, size_t *i)
 	while (s[*i] && !ft_ch_in_str(s[*i], " <>|\n"))
 	{
 		if (s[*i] == '$')
-			ft_lstadd_back(&chars, ft_lstnew(parsing_dollar(msh, s, i)));
+			ft_add_env_or_no(&chars, parsing_dollar(msh, s, i));
 		else if (ft_ch_in_str(s[*i], "'\""))
 			ft_lstadd_back(&chars, ft_lstnew(get_quotes_string(msh, s, i)));
 		else
 			ft_lstadd_back(&chars, ft_lstnew(ft_chrdup(s[(*i)++])));
 	}
 	add_keyword(msh, &chars, is_redirect);
-}
-
-/*
-**		@brief		parsing and get value  from string, started by $				
-*/
-char	*parsing_dollar(t_msh *msh, char *s, size_t *i)
-{
-	char	*key;
-	char	*value;
-
-	(*i)++;
-	if (s[*i] == '?')
-	{
-		(*i)++;
-		return (ft_itoa(msh->old_status));
-	}
-	if (ft_ch_in_str(s[(*i)], " <>|$'\"\n="))
-		return (ft_strdup("$"));
-	key = get_key(ft_isdigit(s[*i]), s, i);
-	value = get_value_from_envp(msh, key);
-	free(key);
-	return (value);
 }
