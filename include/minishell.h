@@ -196,14 +196,7 @@ void	ft_critical_error(char *msg, char *errno_msg, int err);
 void	ft_raise_error(char *msg, char *errno_msg);
 void	ft_raise_error_n(char *msg, int err_n);
 int		print_errno(void);
-
-// parcing / tests_func
-
-void	test_print_arr(char **arr);
-void	test_print_command(t_cmnd *cmnd);
-void	test_print_lst(t_list *lst);
-void	printos(char *msg, char *str);
-void	printod(char *msg, int x);
+char	*ft_replace_rdl(char *str);
 
 // bonus / wildcard
 

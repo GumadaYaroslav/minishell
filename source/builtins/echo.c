@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_echo(t_msh *msh, char **argv, char **env)
+int	ft_echo(t_msh *msh, char **ar, char **env)
 {
 	int	i;
 	int	flag;
@@ -21,20 +21,16 @@ int	ft_echo(t_msh *msh, char **argv, char **env)
 	(void)msh;
 	i = 1;
 	flag = 1;
-	
-	// printf("%s\n", argv[3]);
-	// printf("%s\n", argv[2]);
-	// printf("%s\n", argv[1]);
-	if (argv[1])
+	if (ar[1])
 	{
-		if (ft_strcmp(argv[1], "-n") == 0)
+		if (ft_strcmp(ar[1], "-n") == 0)
 			flag = 0;
-		while (argv[i])
+		while (ar[i])
 		{
-			if (ft_strcmp(argv[i], "-n") != 0)
+			if (ft_strcmp(ar[i], "-n") != 0)
 			{
-				ft_putstr_fd(argv[i], 1);
-				if (argv[i + 1] && ft_strlen(argv[i]) != 0 && ft_strlen(argv[i + 1]))
+				ft_putstr_fd(ar[i], 1);
+				if (ar[i + 1] && ft_strlen(ar[i + 1]))
 					write(1, " ", 1);
 			}
 			i++;

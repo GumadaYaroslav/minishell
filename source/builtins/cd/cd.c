@@ -14,12 +14,6 @@
 
 int	help_change_dir(char *oldpwd, char *dir, t_msh *msh)
 {
-	// if (!oldpwd)
-	// {
-	// 	printf("%s\n", dir);
-	// 	return (print_errno());
-	// }
-	// printf("%s\n", dir);
 	if (chdir(dir) == -1)
 		return (chdir_error(dir));
 	if (oldpwd)

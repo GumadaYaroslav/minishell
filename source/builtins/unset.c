@@ -26,7 +26,8 @@ int	ft_unset(char **argv, t_msh *msh)
 		env = msh->lst_env;
 		while (env && env->next)
 		{
-			remove_elem_from_envp(msh, argv[i]);
+			if (argv[i][0] != '\0')
+				remove_elem_from_envp(msh, argv[i]);
 			env = env->next;
 		}
 		i++;

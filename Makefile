@@ -6,7 +6,6 @@ SRCS_FILES	= 	inicialise.c \
 				parsing/parsing.c \
 				parsing/parsing_dollar.c \
 				parsing/parsing_utils.c \
-				parsing/tests_func.c \
 				execute/run_pipes.c \
 				execute/run_command.c \
 				execute/redirects.c \

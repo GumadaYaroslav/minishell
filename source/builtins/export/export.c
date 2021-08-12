@@ -50,63 +50,26 @@ char	*ft_strdub_chr(char *str, char c, int *flag)
 	return (new_str);
 }
 
-t_list	*arr_to_list(char **arr, t_list *list)
-{
-	int	i;
-
-	ft_lstclear(&list);
-	i = 0;
-	while(arr[i])
-	{
-		ft_lstadd_back(&list, ft_lstnew(arr[i]));
-		i++;
-	}
-	return (list);
-}
-
-void	my_insert_or_update_elem_from_envp(t_msh *msh, char *argv)
-{
-	char	*s;
-	int		flag;
-	t_list	*elem;
-
-	flag = OK;
-	s = ft_strdub_chr(argv, '=', &flag);
-	elem = ft_lstfind(msh->lst_env, s);
-	if (elem != NULL && flag == KO)
-		return ;
-	else if (elem != NULL && flag == OK)
-	{
-		free(elem->val);
-		elem->val = ft_strdup(argv);
-		if (elem->val == NULL)
-			exit(errno);
-	}
-	else
-		ft_lstadd_back(&msh->lst_env, ft_lstnew(argv));
-	ft_split_free(msh->env);
-	msh->env = ft_lst_get_array(msh->lst_env);
-	free(s);
-}
-
 int	ft_export(char **argv, t_msh *msh)
 {
 	int	i;
+	int	ret_vel;
 
 	i = 1;
+	ret_vel = 0;
 	if (ft_split_len(argv) == 1)
 	{
+		sort_the_env(msh, ft_split_len(msh->env));
 		print_export(msh->env);
-		return (0);
+		return (ret_vel);
 	}
 	while (argv[i])
 	{
 		if (!check_export(argv[i]))
-			my_insert_or_update_elem_from_envp(msh, argv[i]);
+			insert_or_update_elem_from_envp(msh, argv[i]);
+		else
+			ret_vel = 1;
 		i++;
 	}
-	sort_the_env(msh, ft_split_len(msh->env));
-	print_export(msh->env);
-	// msh->lst_env = arr_to_list(msh->env, msh->lst_env);
-	return (0);
+	return (ret_vel);
 }
