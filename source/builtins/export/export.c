@@ -50,6 +50,20 @@ char	*ft_strdub_chr(char *str, char c, int *flag)
 	return (new_str);
 }
 
+t_list	*arr_to_list(char **arr, t_list *list)
+{
+	int	i;
+
+	ft_lstclear(&list);
+	i = 0;
+	while(arr[i])
+	{
+		ft_lstadd_back(&list, ft_lstnew(arr[i]));
+		i++;
+	}
+	return (list);
+}
+
 void	my_insert_or_update_elem_from_envp(t_msh *msh, char *argv)
 {
 	char	*s;
@@ -92,5 +106,7 @@ int	ft_export(char **argv, t_msh *msh)
 		i++;
 	}
 	sort_the_env(msh, ft_split_len(msh->env));
+	print_export(msh->env);
+	// msh->lst_env = arr_to_list(msh->env, msh->lst_env);
 	return (0);
 }

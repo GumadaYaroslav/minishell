@@ -21,7 +21,10 @@ int	ft_echo(t_msh *msh, char **argv, char **env)
 	(void)msh;
 	i = 1;
 	flag = 1;
+	
 	// printf("%s\n", argv[3]);
+	// printf("%s\n", argv[2]);
+	// printf("%s\n", argv[1]);
 	if (argv[1])
 	{
 		if (ft_strcmp(argv[1], "-n") == 0)

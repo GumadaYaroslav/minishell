@@ -42,6 +42,7 @@ void	sort_the_env(t_msh *msh, int len_env)
 	int		j;
 	char	*tmp;
 
+	// printf("sort_the_env\n");
 	i = 0;
 	while (i < len_env)
 	{
