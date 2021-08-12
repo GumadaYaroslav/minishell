@@ -17,5 +17,5 @@ a.out
 minishell
 out*
 tests/
-msh_test/
+msh_tester/
 big_file
