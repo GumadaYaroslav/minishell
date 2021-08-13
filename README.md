@@ -1,6 +1,6 @@
 # MINISHELL #
 
-minishell is a project of school 42, in which you need to create your own shell, in many ways repeating the behavior of the bash. The project was carried out by [GumadaYaroslav](https://github.com/GumadaYaroslav) and Taras.
+minishell is a project of school 42, in which you need to create your own shell, in many ways repeating the behavior of the bash. The project was carried out by [Gumada Yaroslav](https://github.com/GumadaYaroslav) and [Taras Levko](https://github.com/Arheii).
 
 ### What is this repository for? ###
 
