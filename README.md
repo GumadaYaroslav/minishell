@@ -1,6 +1,6 @@
 # MINISHELL #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+minishell is a project of school 42, in which you need to create your own shell, in many ways repeating the behavior of the bash. The project was carried out by [GumadaYaroslav](https://github.com/GumadaYaroslav) and Taras.
 
 ### What is this repository for? ###
 
