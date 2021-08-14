@@ -1,6 +1,6 @@
 # MINISHELL #
 
-minishell is a project of school 42, in which you need to create your own little bush. The project was carried out by [Gumada Yaroslav](https://github.com/GumadaYaroslav) and [Taras Levko](https://github.com/alchrist42).
+Minishell is a project of school 42, in which you need to create your own little bush. The project was carried out by [Gumada Yaroslav](https://github.com/GumadaYaroslav) and [Taras Levko](https://github.com/alchrist42).
 
 ### Launching the program :
   ```
